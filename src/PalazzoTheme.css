@@ -1,0 +1,67 @@
+:root {
+  --palazzo-gold: #c5a059;
+  --palazzo-dark: #2c2416;
+  --palazzo-cream: #fdfaf2;
+  --palazzo-green: #3d5a35; /* From the hanging ferns */
+  --palazzo-accent: #8b2635; /* From the altar flowers */
+}
+
+body {
+  margin: 0;
+  background-color: var(--palazzo-cream);
+  color: var(--palazzo-dark);
+  font-family: 'Playfair Display', serif;
+}
+
+.hero-section {
+  height: 40vh;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/path-to-your-dome-image.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.pv-panel {
+  background: white;
+  border: 1px solid var(--palazzo-gold);
+  padding: 40px;
+  max-width: 500px;
+  margin: -50px auto 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 10;
+}
+
+h1 { font-size: 3rem; margin: 0; letter-spacing: 4px; }
+h3 { text-align: center; color: var(--palazzo-gold); letter-spacing: 2px; }
+
+.input-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+.input-group label { font-size: 0.8rem; text-transform: uppercase; color: var(--palazzo-gold); margin-bottom: 5px; }
+
+input, select, textarea {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  font-family: inherit;
+  outline: none;
+}
+
+input:focus { border-bottom-color: var(--palazzo-green); }
+
+.pv-button {
+  background: var(--palazzo-gold);
+  color: white;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.pv-button:hover { background: var(--palazzo-green); }

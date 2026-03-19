@@ -1,120 +1,109 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState, useEffect } from 'react'
+import './PalazzoTheme.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [formData, setFormData] = useState({
+    name: '',
+    attending: 'yes',
+    guests: 1,
+    message: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [rsvpList, setRsvpList] = useState([]);
+
+  // Mock "Backend" using LocalStorage
+  useEffect(() => {
+    const savedRsvps = JSON.parse(localStorage.getItem('palazzo_rsvps') || '[]');
+    setRsvpList(savedRsvps);
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newList = [...rsvpList, { ...formData, id: Date.now() }];
+    setRsvpList(newList);
+    localStorage.setItem('palazzo_rsvps', JSON.stringify(newList));
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="container">
+        <div className="pv-panel fade-in">
+          <h2>Thank You, {formData.name.split(' ')[0]}!</h2>
+          <p>Your response has been saved locally.</p>
+          <button className="pv-button-outline" onClick={() => setSubmitted(false)}>Back to Form</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-wrapper">
+      <header className="hero-section">
+        <div className="overlay">
+          <h1>CJ & Sebastian</h1>
+          <p className="subtitle">PALAZZO VERDE • 2026</p>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
+      <main className="container">
+        <section className="pv-panel">
+          <h3>R.S.V.P.</h3>
+          <form onSubmit={handleSubmit} className="rsvp-form">
+            <div className="input-group">
+              <label>Guest Name</label>
+              <input 
+                type="text" 
+                required 
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                placeholder="Enter your full name"
+              />
+            </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+            <div className="input-group">
+              <label>Will you join us?</label>
+              <select 
+                value={formData.attending}
+                onChange={(e) => setFormData({...formData, attending: e.target.value})}
+              >
+                <option value="yes">Happily Accepts</option>
+                <option value="no">Regretfully Declines</option>
+              </select>
+            </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+            {formData.attending === 'yes' && (
+              <div className="input-group">
+                <label>Number of Guests</label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="5"
+                  value={formData.guests}
+                  onChange={(e) => setFormData({...formData, guests: e.target.value})}
+                />
+              </div>
+            )}
+
+            <div className="input-group">
+              <label>Message (Optional)</label>
+              <textarea 
+                rows="3"
+                value={formData.message}
+                onChange={(e) => setFormData({...formData, message: e.target.value})}
+              ></textarea>
+            </div>
+
+            <button type="submit" className="pv-button">Send Response</button>
+          </form>
+        </section>
+
+        {/* Local Debug View (Since you have no backend) */}
+        <section className="debug-view">
+          <small>Local Guest Count: {rsvpList.length}</small>
+        </section>
+      </main>
+    </div>
   )
 }
 
