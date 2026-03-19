@@ -19,7 +19,7 @@ body {
 .hero-header {
   height: 70vh;
   position: relative;
-  /* Make sure the image is in /public/palazzo-dome.jpg */
+  /* Make sure the image file in your /public folder is named palazzo-dome.jpg */
   background: url('/palazzo-dome.jpg') no-repeat center center;
   background-size: cover;
   display: flex;
@@ -32,10 +32,11 @@ body {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  /* This creates the warm glow and fades to the cream background below */
+  /* Added a slightly darker top gradient (rgba 0,0,0,0.5) 
+     to make the white names pop against the night sky in your photo */
   background: linear-gradient(
     to bottom, 
-    rgba(44, 36, 22, 0.4) 0%, 
+    rgba(0, 0, 0, 0.5) 0%, 
     rgba(197, 160, 89, 0.2) 60%, 
     var(--pv-cream) 100%
   );
