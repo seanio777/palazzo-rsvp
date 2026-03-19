@@ -207,3 +207,94 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
   padding-top: 20px;
   margin-top: 10px;
 }
+
+/* --- PREVIEW PAGE STYLES --- */
+.preview-page {
+  height: 100vh;
+  width: 100%;
+  background-color: var(--pv-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.preview-card {
+  background: white;
+  padding: 60px 40px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+  border: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+.preview-names {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  margin: 15px 0;
+  color: var(--pv-text);
+}
+
+.preview-date {
+  font-size: 0.9rem;
+  letter-spacing: 4px;
+  color: var(--pv-dark-gold);
+  font-weight: 600;
+}
+
+.preview-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--pv-gold);
+  margin: 20px auto;
+}
+
+.preview-message {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.preview-button {
+  background: var(--pv-text);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.preview-button span {
+  display: block;
+  font-size: 0.6rem;
+  opacity: 0.6;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+.preview-button:hover {
+  background: var(--pv-fern);
+}
+
+/* --- FORM EXTRAS --- */
+.limit-hint {
+  font-size: 0.7rem;
+  color: var(--pv-dark-gold);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.fade-in {
+  animation: fadeInEffect 0.8s ease-in;
+}
+
+@keyframes fadeInEffect {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
