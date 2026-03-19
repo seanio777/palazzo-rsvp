@@ -7,11 +7,10 @@ function App() {
         <div className="hero-overlay">
           <div className="hero-content">
             <p className="pre-title">The Wedding of</p>
-            <h1 className="names">CJ <span className="amp">&</span> Sebastian</h1>
+            <h1 className="names">Chryzller <span className="amp">&</span> Sebastian</h1>
             <div className="divider"></div>
             <p className="venue-name">Palazzo Verde</p>
-            {/* Moved the date up slightly by wrapping it in the hero-content logic */}
-            <p className="date-string">OCTOBER 24 • 2026</p>
+            {/* Date removed from here */}
           </div>
         </div>
       </header>
@@ -19,8 +18,14 @@ function App() {
       <main className="container">
         <section className="rsvp-section">
           <div className="pv-panel">
-            <h2 className="rsvp-title">R.S.V.P.</h2>
+            <h2 className="rsvp-title">RSVP</h2>
             <p className="rsvp-subtitle">We look forward to celebrating with you</p>
+            
+            {/* Date moved here, before the deadline */}
+            <div className="date-container">
+              <p className="date-string">OCTOBER 24, 2026</p>
+            </div>
+            <p className="rsvp-deadline">Please respond on or before September 1, 2026</p>
 
             <form className="rsvp-form" onSubmit={(e) => e.preventDefault()}>
               <div className="input-group">
@@ -58,7 +63,7 @@ function App() {
           <p>Palazzo Verde</p>
           <p>Daang Reyna, Vista Alabang, Las Piñas, Metro Manila</p>
         </div>
-        <p className="footer-tag">CJ & SEBASTIAN • 2026</p>
+        <p className="footer-tag">CHRYZLLER & SEBASTIAN | 2026</p>
       </footer>
     </div>
   )

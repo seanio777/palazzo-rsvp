@@ -17,9 +17,8 @@ body {
 
 /* --- THE BACKGROUND SECTION --- */
 .hero-header {
-  height: 70vh;
+  height: 75vh;
   position: relative;
-  /* IMPORTANT: Rename your image to palazzo-dome.jpg in the public folder */
   background: url('/palazzo-dome.jpg') no-repeat center center;
   background-size: cover;
   display: flex;
@@ -60,24 +59,39 @@ body {
 
 .names .amp { color: var(--pv-gold); }
 
-/* --- THE LONGER LINE --- */
 .divider {
   width: 160px;
   height: 1px;
   background: var(--pv-gold);
-  /* Increased margin from 25px to 40px to spread out the names and venue */
-  margin: 40px auto; 
+  margin: 35px auto; 
 }
 
 .venue-name { 
-  font-size: 1.8rem; 
-  letter-spacing: 4px; 
+  font-size: 2.0rem; /* Increased from 1.8rem for better presence */
+  font-family: 'Playfair Display', serif; /* Matching the formal headers */
+  font-weight: 700;
+  letter-spacing: 6px; /* Increased spacing for a high-end look */
   text-transform: uppercase;
-  /* Added margin-bottom to push the RSVP panel away from the text */
   margin-bottom: 20px; 
+  color: #FFFFFF;
+  /* This shadow creates a subtle "halo" so the white text pops off the image */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-.date-string { font-size: 1.2rem; color: var(--pv-gold); margin-top: 5px; }
+.date-string { 
+  font-size: 1.4rem;
+  color: var(--pv-dark-gold); 
+  /* Added a border top/bottom to frame the date inside the panel */
+  border-top: 1px solid rgba(197, 160, 89, 0.2);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+  display: inline-block;
+  padding: 10px 40px;
+  margin: 20px 0 10px 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
 
 /* --- RSVP PANEL --- */
 .container {
@@ -87,10 +101,10 @@ body {
 }
 
 .rsvp-section {
-  /* Adjusted from -120px to -80px so it doesn't "climb" too high up the text */
-  margin-top: -80px; 
+  margin-top: -60px; /* Keep this negative margin to bridge the gradient */
   position: relative;
   z-index: 10;
+  text-align: center; /* Ensures the date-string inline-block stays centered */
 }
 
 .pv-panel {
@@ -111,7 +125,17 @@ body {
   text-align: center;
   font-style: italic;
   color: var(--pv-fern);
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+}
+
+.rsvp-deadline {
+  text-align: center;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  color: var(--pv-text); /* Changed to standard text color for hierarchy */
+  margin-bottom: 35px;
+  font-weight: 600;
+  opacity: 0.8;
 }
 
 /* --- FORM ELEMENTS --- */
@@ -153,7 +177,7 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
 
 .pv-button:hover { background: var(--pv-fern); }
 
-/* --- FOOTER & ADDRESS --- */
+/* --- FOOTER --- */
 .footer { 
   text-align: center; 
   padding: 60px 20px; 
