@@ -62,13 +62,21 @@ body {
 
 /* --- THE LONGER LINE --- */
 .divider {
-  width: 160px; 
+  width: 160px;
   height: 1px;
   background: var(--pv-gold);
-  margin: 25px auto;
+  /* Increased margin from 25px to 40px to spread out the names and venue */
+  margin: 40px auto; 
 }
 
-.venue-name { font-size: 1.8rem; letter-spacing: 4px; text-transform: uppercase; }
+.venue-name { 
+  font-size: 1.8rem; 
+  letter-spacing: 4px; 
+  text-transform: uppercase;
+  /* Added margin-bottom to push the RSVP panel away from the text */
+  margin-bottom: 20px; 
+}
+
 .date-string { font-size: 1.2rem; color: var(--pv-gold); margin-top: 5px; }
 
 /* --- RSVP PANEL --- */
@@ -79,7 +87,8 @@ body {
 }
 
 .rsvp-section {
-  margin-top: -120px;
+  /* Adjusted from -120px to -80px so it doesn't "climb" too high up the text */
+  margin-top: -80px; 
   position: relative;
   z-index: 10;
 }

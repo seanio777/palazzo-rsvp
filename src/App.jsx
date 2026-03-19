@@ -10,7 +10,8 @@ function App() {
             <h1 className="names">CJ <span className="amp">&</span> Sebastian</h1>
             <div className="divider"></div>
             <p className="venue-name">Palazzo Verde</p>
-            <p className="date-string">2026</p>
+            {/* Moved the date up slightly by wrapping it in the hero-content logic */}
+            <p className="date-string">OCTOBER 24 • 2026</p>
           </div>
         </div>
       </header>
