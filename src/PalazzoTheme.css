@@ -1,67 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&display=swap');
+
 :root {
-  --palazzo-gold: #c5a059;
-  --palazzo-dark: #2c2416;
-  --palazzo-cream: #fdfaf2;
-  --palazzo-green: #3d5a35; /* From the hanging ferns */
-  --palazzo-accent: #8b2635; /* From the altar flowers */
+  --pv-gold: #C5A059;
+  --pv-dark-gold: #9E7D41;
+  --pv-fern: #3D5A35;
+  --pv-cream: #FDF9F0;
+  --pv-text: #2C2416;
 }
 
 body {
   margin: 0;
-  background-color: var(--palazzo-cream);
-  color: var(--palazzo-dark);
-  font-family: 'Playfair Display', serif;
+  background-color: var(--pv-cream);
+  color: var(--pv-text);
+  font-family: 'Cormorant Garamond', serif;
 }
 
-.hero-section {
-  height: 40vh;
-  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/path-to-your-dome-image.jpg');
+/* --- THE BACKGROUND SECTION --- */
+.hero-header {
+  height: 70vh;
+  position: relative;
+  /* Make sure the image is in /public/palazzo-dome.jpg */
+  background: url('/palazzo-dome.jpg') no-repeat center center;
   background-size: cover;
-  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   text-align: center;
+  color: white;
 }
 
-.pv-panel {
-  background: white;
-  border: 1px solid var(--palazzo-gold);
-  padding: 40px;
-  max-width: 500px;
-  margin: -50px auto 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  /* This creates the warm glow and fades to the cream background below */
+  background: linear-gradient(
+    to bottom, 
+    rgba(44, 36, 22, 0.4) 0%, 
+    rgba(197, 160, 89, 0.2) 60%, 
+    var(--pv-cream) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  z-index: 2;
+  padding: 20px;
+}
+
+.pre-title { font-style: italic; font-size: 1.2rem; letter-spacing: 2px; }
+
+.names {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  margin: 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.names .amp { color: var(--pv-gold); }
+
+.divider {
+  width: 80px;
+  height: 1px;
+  background: var(--pv-gold);
+  margin: 20px auto;
+}
+
+.venue-name { font-size: 1.8rem; letter-spacing: 4px; text-transform: uppercase; }
+.date-string { font-size: 1.2rem; color: var(--pv-gold); margin-top: 5px; }
+
+/* --- RSVP PANEL --- */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.rsvp-section {
+  margin-top: -120px; /* This creates the "floating" effect over the background */
   position: relative;
   z-index: 10;
 }
 
-h1 { font-size: 3rem; margin: 0; letter-spacing: 4px; }
-h3 { text-align: center; color: var(--palazzo-gold); letter-spacing: 2px; }
+.pv-panel {
+  background: white;
+  padding: 40px;
+  border: 1px solid var(--pv-gold);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
 
-.input-group { margin-bottom: 20px; display: flex; flex-direction: column; }
-.input-group label { font-size: 0.8rem; text-transform: uppercase; color: var(--palazzo-gold); margin-bottom: 5px; }
+.rsvp-title {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.rsvp-subtitle {
+  text-align: center;
+  font-style: italic;
+  color: var(--pv-fern);
+  margin-bottom: 30px;
+}
+
+/* --- FORM ELEMENTS --- */
+.rsvp-form { display: flex; flex-direction: column; gap: 20px; }
+
+.input-row { display: grid; grid-template-columns: 1fr 100px; gap: 15px; }
+
+.input-group { display: flex; flex-direction: column; gap: 5px; }
+
+label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--pv-dark-gold);
+}
 
 input, select, textarea {
   border: none;
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
   font-family: inherit;
+  font-size: 1rem;
   outline: none;
+  background: transparent;
 }
 
-input:focus { border-bottom-color: var(--palazzo-green); }
+input:focus { border-bottom: 1px solid var(--pv-fern); }
 
 .pv-button {
-  background: var(--palazzo-gold);
+  background: var(--pv-text);
   color: white;
   border: none;
   padding: 15px;
-  width: 100%;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   cursor: pointer;
-  font-weight: bold;
-  letter-spacing: 1px;
+  margin-top: 10px;
   transition: 0.3s;
 }
 
-.pv-button:hover { background: var(--palazzo-green); }
+.pv-button:hover { background: var(--pv-fern); }
+
+.footer { text-align: center; padding: 60px 20px; opacity: 0.6; font-size: 0.8rem; letter-spacing: 2px; }

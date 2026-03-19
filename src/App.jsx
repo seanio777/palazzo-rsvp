@@ -1,108 +1,65 @@
-import { useState, useEffect } from 'react'
 import './PalazzoTheme.css'
 
 function App() {
-  const [formData, setFormData] = useState({
-    name: '',
-    attending: 'yes',
-    guests: 1,
-    message: ''
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [rsvpList, setRsvpList] = useState([]);
-
-  // Mock "Backend" using LocalStorage
-  useEffect(() => {
-    const savedRsvps = JSON.parse(localStorage.getItem('palazzo_rsvps') || '[]');
-    setRsvpList(savedRsvps);
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newList = [...rsvpList, { ...formData, id: Date.now() }];
-    setRsvpList(newList);
-    localStorage.setItem('palazzo_rsvps', JSON.stringify(newList));
-    setSubmitted(true);
-  };
-
-  if (submitted) {
-    return (
-      <div className="container">
-        <div className="pv-panel fade-in">
-          <h2>Thank You, {formData.name.split(' ')[0]}!</h2>
-          <p>Your response has been saved locally.</p>
-          <button className="pv-button-outline" onClick={() => setSubmitted(false)}>Back to Form</button>
-        </div>
-      </div>
-    );
-  }
-
+  // Purely frontend state for the form inputs
   return (
     <div className="app-wrapper">
-      <header className="hero-section">
-        <div className="overlay">
-          <h1>CJ & Sebastian</h1>
-          <p className="subtitle">PALAZZO VERDE • 2026</p>
+      {/* This is the Section with the background image.
+          The CSS class 'hero-header' handles the image placement. 
+      */}
+      <header className="hero-header">
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <p className="pre-title">The Wedding of</p>
+            <h1 className="names">CJ <span className="amp">&</span> Sebastian</h1>
+            <div className="divider"></div>
+            <p className="venue-name">Palazzo Verde</p>
+            <p className="date-string">2026</p>
+          </div>
         </div>
       </header>
 
       <main className="container">
-        <section className="pv-panel">
-          <h3>R.S.V.P.</h3>
-          <form onSubmit={handleSubmit} className="rsvp-form">
-            <div className="input-group">
-              <label>Guest Name</label>
-              <input 
-                type="text" 
-                required 
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                placeholder="Enter your full name"
-              />
-            </div>
+        {/* The RSVP Panel floats partially over the background section */}
+        <section className="rsvp-section">
+          <div className="pv-panel">
+            <h2 className="rsvp-title">R.S.V.P.</h2>
+            <p className="rsvp-subtitle">We look forward to celebrating with you</p>
 
-            <div className="input-group">
-              <label>Will you join us?</label>
-              <select 
-                value={formData.attending}
-                onChange={(e) => setFormData({...formData, attending: e.target.value})}
-              >
-                <option value="yes">Happily Accepts</option>
-                <option value="no">Regretfully Declines</option>
-              </select>
-            </div>
-
-            {formData.attending === 'yes' && (
+            <form className="rsvp-form" onSubmit={(e) => e.preventDefault()}>
               <div className="input-group">
-                <label>Number of Guests</label>
-                <input 
-                  type="number" 
-                  min="1" 
-                  max="5"
-                  value={formData.guests}
-                  onChange={(e) => setFormData({...formData, guests: e.target.value})}
-                />
+                <label>Full Name</label>
+                <input type="text" placeholder="Enter your name" />
               </div>
-            )}
 
-            <div className="input-group">
-              <label>Message (Optional)</label>
-              <textarea 
-                rows="3"
-                value={formData.message}
-                onChange={(e) => setFormData({...formData, message: e.target.value})}
-              ></textarea>
-            </div>
+              <div className="input-row">
+                <div className="input-group">
+                  <label>Attendance</label>
+                  <select>
+                    <option>Happily Accepts</option>
+                    <option>Regretfully Declines</option>
+                  </select>
+                </div>
+                <div className="input-group">
+                  <label>Guests</label>
+                  <input type="number" defaultValue="1" min="1" />
+                </div>
+              </div>
 
-            <button type="submit" className="pv-button">Send Response</button>
-          </form>
-        </section>
+              <div className="input-group">
+                <label>Message (Optional)</label>
+                <textarea rows="3" placeholder="Dietary notes or well wishes..."></textarea>
+              </div>
 
-        {/* Local Debug View (Since you have no backend) */}
-        <section className="debug-view">
-          <small>Local Guest Count: {rsvpList.length}</small>
+              <button type="button" className="pv-button">Confirm Attendance</button>
+            </form>
+          </div>
         </section>
       </main>
+
+      <footer className="footer">
+        <p>CJ & SEBASTIAN • 2026</p>
+      </footer>
     </div>
   )
 }
