@@ -1,12 +1,8 @@
 import './PalazzoTheme.css'
 
 function App() {
-  // Purely frontend state for the form inputs
   return (
     <div className="app-wrapper">
-      {/* This is the Section with the background image.
-          The CSS class 'hero-header' handles the image placement. 
-      */}
       <header className="hero-header">
         <div className="hero-overlay">
           <div className="hero-content">
@@ -20,7 +16,6 @@ function App() {
       </header>
 
       <main className="container">
-        {/* The RSVP Panel floats partially over the background section */}
         <section className="rsvp-section">
           <div className="pv-panel">
             <h2 className="rsvp-title">R.S.V.P.</h2>
@@ -58,7 +53,11 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>CJ & SEBASTIAN • 2026</p>
+        <div className="address-block">
+          <p>Palazzo Verde</p>
+          <p>Daang Reyna, Vista Alabang, Las Piñas, Metro Manila</p>
+        </div>
+        <p className="footer-tag">CJ & SEBASTIAN • 2026</p>
       </footer>
     </div>
   )
