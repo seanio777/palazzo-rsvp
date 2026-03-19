@@ -43,7 +43,7 @@ function App() {
                 </div>
                 <div className="input-group">
                   <label>Guests</label>
-                  <input type="number" defaultValue="1" min="1" />
+                  <input type="number" defaultValue="1" min="1" max="2"/>
                 </div>
               </div>
 
