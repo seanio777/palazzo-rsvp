@@ -130,12 +130,12 @@ body {
 
 .rsvp-deadline {
   text-align: center;
-  font-size: 0.85rem;
-  letter-spacing: 1.5px;
-  color: var(--pv-text); /* Changed to standard text color for hierarchy */
+  font-family: 'Cormorant Garamond', serif; /* Matching body/subtitle font */
+  font-style: italic; /* Matching subtitle style */
+  font-size: 1.1rem; /* Slightly larger for readability in serif */
+  color: var(--pv-fern); /* Matching subtitle color */
   margin-bottom: 35px;
-  font-weight: 600;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 /* --- FORM ELEMENTS --- */
