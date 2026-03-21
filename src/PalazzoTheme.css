@@ -5,14 +5,35 @@
   --pv-dark-gold: #9E7D41;
   --pv-fern: #3D5A35;
   --pv-cream: #FDF9F0;
+  --pv-cream-dark: #F5EEDA; /* A slightly darker "shadow" cream */
   --pv-text: #2C2416;
 }
 
 body {
   margin: 0;
-  background-color: var(--pv-cream);
+  /* This creates a soft "vignette" effect */
+  background: radial-gradient(
+    circle at center, 
+    var(--pv-cream) 0%, 
+    var(--pv-cream-dark) 100%
+  );
+  background-attachment: fixed; /* Keeps the background still while you scroll */
   color: var(--pv-text);
   font-family: 'Cormorant Garamond', serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add a very soft "fade up" to your sections as the guest scrolls */
+.info-section, .attire-section, .location-section {
+  animation: reveal 1.2s ease-out forwards;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- THE BACKGROUND SECTION --- */
@@ -108,10 +129,20 @@ body {
 }
 
 .pv-panel {
-  background: white;
+  background: #ffffff;
   padding: 40px;
+  /* Double border: A gold one and a subtle inner white one */
   border: 1px solid var(--pv-gold);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  outline: 5px solid white; /* This creates a "matted" look like a framed photo */
+  outline-offset: -10px; 
+  
+  /* Layered Shadow: Makes it look 3D */
+  box-shadow: 
+    0 20px 40px rgba(44, 36, 22, 0.1), 
+    0 5px 15px rgba(0, 0, 0, 0.05);
+  
+  position: relative;
+  z-index: 2;
 }
 
 .rsvp-title {
@@ -499,4 +530,27 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
     padding: 0 15px;
     margin-bottom: 40px; /* Space before the final footer */
   }
+}
+
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  background: 
+    linear-gradient(rgba(253, 249, 240, 0.8), rgba(253, 249, 240, 0.8)),
+    url('https://www.transparenttextures.com/patterns/cream-paper.png');
+  background-attachment: fixed;
+}
+
+/* This adds a subtle "paper grain" over the whole site */
+.app-wrapper::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03; /* Very, very faint */
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("https://www.transparenttextures.com/patterns/felt.png");
 }
