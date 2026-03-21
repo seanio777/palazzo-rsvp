@@ -85,7 +85,15 @@ function App() {
                   </div>
                   <div className="input-group">
                     <label>Message (Optional)</label>
-                    <textarea rows="3" placeholder="Dietary notes or well wishes..."></textarea>
+                    <textarea 
+                      rows="1" 
+                      placeholder="Dietary notes or well wishes..."
+                      onInput={(e) => {
+                        e.target.style.height = 'auto';
+                        e.target.style.height = e.target.scrollHeight + 'px';
+                      }}
+                      style={{ overflow: 'hidden', resize: 'none' }}
+                    ></textarea>
                   </div>
                   <button type="submit" className="pv-button">Confirm Attendance</button>
                 </form>
@@ -127,10 +135,24 @@ function App() {
               Las Piñas, 1750 Metro Manila
             </p>
             <div className="map-container">
-              <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="map-button">
-                View on Google Maps
-              </a>
-              <p className="map-hint">Free parking is available within the vicinity.</p>
+              {/* The Iframe for the interactive map */}
+              <iframe
+                title="Palazzo Verde Map"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d966.2437811566513!2d121.008247967292!3d14.370851467002298!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d1e69968a175%3A0x91b8d8126ab138fc!2sNotre%20Dame%20De%20Vie%20Chapel!5e0!3m2!1sen!2sph!4v1774092328112!5m2!1sen!2sph"
+                width="100%"
+                height="300"
+                style={{ border: 0, marginTop: '20px', borderRadius: '4px' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+
+              <div style={{ marginTop: '20px' }}>
+                <a href="https://maps.app.goo.gl/kXk5hY3C8V8H9Y6A8" target="_blank" rel="noreferrer" className="map-button">
+                  Open in Google Maps App
+                </a>
+              </div>
+              <p className="map-hint">Parking is available within the vicinity.</p>
             </div>
           </div>
         </section>

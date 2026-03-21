@@ -209,6 +209,15 @@ input, select, textarea {
   font-size: 1rem;
   outline: none;
   background: transparent;
+  width: 100%;
+  /* Added for the auto-expand feel */
+  transition: border-color 0.3s; 
+  min-height: 1.5rem;
+}
+
+textarea {
+  display: block;
+  line-height: 1.5;
 }
 
 input:focus { border-bottom: 1px solid var(--pv-fern); }
@@ -293,6 +302,28 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
 .map-button:hover {
   background: var(--pv-gold);
   color: white;
+}
+
+.map-container {
+  margin-top: 25px;
+  width: 100%;
+  overflow: hidden;
+}
+
+iframe {
+  filter: grayscale(0.2) contrast(0.9); /* Subtly matches your vintage/warm theme */
+  transition: filter 0.3s ease;
+}
+
+iframe:hover {
+  filter: grayscale(0); /* Brightens up when the user interacts with it */
+}
+
+.map-hint {
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 15px;
+  opacity: 0.8;
 }
 
 /* --- FOOTER --- */
