@@ -166,11 +166,12 @@ function App() {
       </main>
 
       <footer className="footer reveal">
-        <div className="address-block">
-          <p>Palazzo Verde</p>
-          <p>Daang Reyna, Vista Alabang, Las Piñas, Metro Manila</p>
+        <div className="footer-content">
+          <div className="footer-divider"></div>
+          <h2 className="footer-names">Chryzller <span className="amp">&</span> Sebastian</h2>
+          <p className="footer-date">OCTOBER 24, 2026 • PALAZZO VERDE</p>
+          <p className="footer-tag">MADE WITH LOVE FOR OUR FAMILY & FRIENDS</p>
         </div>
-        <p className="footer-tag">CHRYZLLER & SEBASTIAN | 2026</p>
       </footer>
     </div>
   )
