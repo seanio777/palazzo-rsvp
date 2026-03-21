@@ -92,9 +92,9 @@ function App() {
                       </select>
                     </div>
                     <div className="input-group">
-                      <label>Guests</label>
+                      <label>Companion</label>
                       <input type="number" defaultValue="1" min="1" max="2" onKeyDown={(e) => e.preventDefault()} />
-                      <span className="limit-hint">Max 2 seats reserved</span>
+                      <span className="limit-hint">Max 2 persons per invitation</span>
                     </div>
                   </div>
                   <div className="input-group">
@@ -159,7 +159,7 @@ function App() {
               ></iframe>
 
               <div style={{ marginTop: '20px' }}>
-                <a href="https://maps.app.goo.gl/H1b2USBkM9haTLLt9" target="_blank" rel="noreferrer" className="map-button">
+                <a href="https://www.google.com/maps/dir//Notre+Dame+De+Vie+Chapel,+Palazzo+Verde,+Daang+Reyna,+Alabang,+Las+Pi%C3%B1as,+Metro+Manila/@14.3709343,121.0081192,21z/data=!4m16!1m7!3m6!1s0x3397d1e69968a175:0x91b8d8126ab138fc!2sNotre+Dame+De+Vie+Chapel!8m2!3d14.3708918!4d121.0082185!16s%2Fg%2F11fltvz7s1!4m7!1m0!1m5!1m1!1s0x3397d1e69968a175:0x91b8d8126ab138fc!2m2!1d121.0082185!2d14.3708918?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" className="map-button">
                   Open in Google Maps App
                 </a>
               </div>

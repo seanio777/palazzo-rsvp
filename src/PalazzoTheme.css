@@ -191,7 +191,7 @@ body {
 
 /* --- FORM ELEMENTS --- */
 .rsvp-form { display: flex; flex-direction: column; gap: 20px; }
-.input-row { display: grid; grid-template-columns: 1fr 100px; gap: 15px; }
+.input-row { display: grid; grid-template-columns: 1fr 120px; gap: 15px; }
 .input-group { display: flex; flex-direction: column; gap: 5px; }
 
 label {
@@ -367,46 +367,103 @@ iframe:hover {
   padding-top: 20px;
 }
 
-/* --- PREVIEW PAGE --- */
+/* --- REFINED PREVIEW PAGE (ZERO SCROLL) --- */
 .preview-page {
   height: 100vh;
-  width: 100%;
-  background-color: var(--pv-cream-dark); /* Warmer preview background */
+  width: 100vw;
+  position: fixed; /* Locks the page in place */
+  top: 0;
+  left: 0;
+  overflow: hidden; /* Hard stop for any scrolling */
+  background: radial-gradient(circle, var(--pv-cream) 0%, var(--pv-cream-dark) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .preview-card {
   background: white;
-  padding: 60px 40px;
+  padding: clamp(40px, 8vh, 80px) 40px; /* Adjusts padding based on screen height */
   max-width: 500px;
-  width: 90%;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-  border: 1px solid rgba(197, 160, 89, 0.2);
+  width: 100%;
+  max-height: 90vh; /* Ensures card never grows taller than screen */
+  overflow-y: auto; /* Just in case content is huge on tiny phones */
+  position: relative;
+  border: 1px solid var(--pv-gold);
+  outline: 1px solid var(--pv-gold);
+  outline-offset: -15px;
+  box-shadow: 0 30px 60px rgba(44, 36, 22, 0.15);
+  box-sizing: border-box;
 }
 
 .preview-names {
   font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
+  /* Scales font size based on screen width AND height to prevent overflow */
+  font-size: clamp(1.8rem, 5vw, 3rem); 
   margin: 15px 0;
   color: var(--pv-text);
+  line-height: 1.2;
+}
+
+/* Hide scrollbars for the inner card if they appear, to keep it clean */
+.preview-card::-webkit-scrollbar {
+  display: none;
+}
+.preview-card {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .preview-button {
-  background: var(--pv-text);
-  color: white;
-  border: none;
-  padding: 15px 40px;
+  background: transparent;
+  color: var(--pv-dark-gold);
+  border: 1px solid var(--pv-gold);
+  padding: 16px 50px;
   font-family: 'Playfair Display', serif;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  margin-top: 10px;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.preview-button:hover { background: var(--pv-fern); }
+.preview-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: var(--pv-gold);
+  transition: all 0.4s ease;
+  z-index: -1;
+}
+
+.preview-button:hover {
+  color: white;
+  letter-spacing: 6px;
+  box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
+}
+
+.preview-button:hover::before {
+  width: 100%;
+}
+
+/* Mobile specific tweak for the card padding */
+@media (max-width: 480px) {
+  .preview-card {
+    padding: 60px 25px;
+    outline-offset: -10px;
+  }
+}
 
 /* --- WRAPPER & TEXTURE --- */
 .app-wrapper {
@@ -484,5 +541,8 @@ iframe:hover {
   }
   .pv-panel {
     padding: 30px 20px; /* Reduce padding so the form isn't too squished */
+  }
+  .input-row {
+    grid-template-columns: 1fr; /* Stack the inputs vertically */
   }
 }
