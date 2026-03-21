@@ -298,3 +298,74 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* --- RESPONSIVE DESIGN (MOBILE FIXES) --- */
+
+@media (max-width: 768px) {
+  /* 1. Adjust the Hero Header to be tall enough for the text + image */
+  .hero-header {
+    height: 70vh; /* Increased from 60vh to give the text more "room" */
+    min-height: 450px; /* Ensures it never gets too squashed */
+  }
+
+  /* 2. Scale down the large names and venue so they fit */
+  .names {
+    font-size: 2.4rem;
+    letter-spacing: 2px;
+  }
+
+  .venue-name {
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    margin-bottom: 40px; /* Pushes the text up away from the upcoming form */
+  }
+
+  /* 3. Reduce the negative margin so the form doesn't cover the text */
+  .rsvp-section {
+    margin-top: -30px; /* Reduced from -40px */
+    padding: 0 15px;
+  }
+
+  .pv-panel {
+    padding: 30px 15px;
+  }
+
+  /* 4. Fix the 2-column input row to stack */
+  .input-row {
+    grid-template-columns: 1fr; 
+    gap: 20px;
+  }
+
+  /* 5. Date string adjustments */
+  .date-string {
+    font-size: 1rem;
+    padding: 8px 15px;
+    width: auto; 
+    letter-spacing: 2px;
+  }
+
+  /* 6. Preview Page scaling */
+  .preview-names {
+    font-size: 2rem;
+  }
+}
+
+/* --- EXTRA TWEAK FOR MOBILE M (375px) AND SMALLER --- */
+@media (max-width: 400px) {
+  .hero-header {
+    height: 65vh;
+  }
+  
+  .names {
+    font-size: 2rem;
+  }
+
+  .venue-name {
+    font-size: 1rem;
+    margin-bottom: 60px; /* Extra breathing room */
+  }
+
+  .divider {
+    margin: 20px auto; /* Smaller divider spacing */
+  }
+}
