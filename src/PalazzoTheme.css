@@ -308,6 +308,7 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
   margin-top: 25px;
   width: 100%;
   overflow: hidden;
+  align-items: center;
 }
 
 iframe {
