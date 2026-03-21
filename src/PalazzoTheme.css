@@ -4,36 +4,61 @@
   --pv-gold: #C5A059;
   --pv-dark-gold: #9E7D41;
   --pv-fern: #3D5A35;
-  --pv-cream: #FDF9F0;
-  --pv-cream-dark: #F5EEDA; /* A slightly darker "shadow" cream */
+  /* UPDATED: Warmer, richer Champagne tones */
+  --pv-cream: #FFFBF2;      /* Lighter, warm ivory */
+  --pv-cream-dark: #F7EBD3; /* Deeper, warm champagne for shadows */
   --pv-text: #2C2416;
+}
+
+/* --- BASE STYLES --- */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  /* This creates a soft "vignette" effect */
+  /* Updated for a warmer vignette glow */
   background: radial-gradient(
     circle at center, 
     var(--pv-cream) 0%, 
     var(--pv-cream-dark) 100%
   );
-  background-attachment: fixed; /* Keeps the background still while you scroll */
+  background-attachment: fixed;
   color: var(--pv-text);
   font-family: 'Cormorant Garamond', serif;
 }
 
-html {
-  scroll-behavior: smooth;
+/* --- ANIMATIONS --- */
+
+.fade-in {
+  animation: fadeInEffect 1.2s ease-out forwards;
 }
 
-/* Add a very soft "fade up" to your sections as the guest scrolls */
-.info-section, .attire-section, .location-section {
-  animation: reveal 1.2s ease-out forwards;
+@keyframes fadeInEffect {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
-@keyframes reveal {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.reveal {
+  opacity: 0; 
+  animation: revealEffect 1.2s ease-out forwards;
+}
+
+@keyframes revealEffect {
+  from { 
+    opacity: 0; 
+    transform: translateY(40px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
 /* --- THE BACKGROUND SECTION --- */
@@ -54,9 +79,11 @@ html {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(197, 160, 89, 0.2) 60%,
-    var(--pv-cream) 100%
+    rgba(0, 0, 0, 0.6) 0%,        /* Darker top for text contrast */
+    rgba(0, 0, 0, 0.2) 30%,       /* Mid-section clarity */
+    rgba(255, 251, 242, 0.4) 50%, /* Start bringing in the warm cream early */
+    rgba(255, 251, 242, 0.8) 80%, /* Getting thicker */
+    var(--pv-cream) 100%          /* Perfect match with the background below */
   );
   display: flex;
   align-items: center;
@@ -88,30 +115,14 @@ html {
 }
 
 .venue-name { 
-  font-size: 2.0rem; /* Increased from 1.8rem for better presence */
-  font-family: 'Playfair Display', serif; /* Matching the formal headers */
+  font-size: 2.0rem;
+  font-family: 'Playfair Display', serif;
   font-weight: 700;
-  letter-spacing: 6px; /* Increased spacing for a high-end look */
+  letter-spacing: 6px;
   text-transform: uppercase;
   margin-bottom: 20px; 
   color: #FFFFFF;
-  /* This shadow creates a subtle "halo" so the white text pops off the image */
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.date-string { 
-  font-size: 1.4rem;
-  color: var(--pv-dark-gold); 
-  /* Added a border top/bottom to frame the date inside the panel */
-  border-top: 1px solid rgba(197, 160, 89, 0.2);
-  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-  display: inline-block;
-  padding: 10px 40px;
-  margin: 20px 0 10px 0;
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 3px;
-  font-weight: 600;
 }
 
 /* --- RSVP PANEL --- */
@@ -122,25 +133,21 @@ html {
 }
 
 .rsvp-section {
-  margin-top: -60px; /* Keep this negative margin to bridge the gradient */
+  margin-top: -60px;
   position: relative;
   z-index: 10;
-  text-align: center; /* Ensures the date-string inline-block stays centered */
+  text-align: center;
 }
 
 .pv-panel {
   background: #ffffff;
   padding: 40px;
-  /* Double border: A gold one and a subtle inner white one */
   border: 1px solid var(--pv-gold);
-  outline: 5px solid white; /* This creates a "matted" look like a framed photo */
+  outline: 5px solid white;
   outline-offset: -10px; 
-  
-  /* Layered Shadow: Makes it look 3D */
   box-shadow: 
     0 20px 40px rgba(44, 36, 22, 0.1), 
     0 5px 15px rgba(0, 0, 0, 0.05);
-  
   position: relative;
   z-index: 2;
 }
@@ -159,12 +166,25 @@ html {
   margin-bottom: 5px;
 }
 
+.date-string { 
+  font-size: 1.4rem;
+  color: var(--pv-dark-gold); 
+  border-top: 1px solid rgba(197, 160, 89, 0.2);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+  display: inline-block;
+  padding: 10px 40px;
+  margin: 20px 0 10px 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
 .rsvp-deadline {
   text-align: center;
-  font-family: 'Cormorant Garamond', serif; /* Matching body/subtitle font */
-  font-style: italic; /* Matching subtitle style */
-  font-size: 1.1rem; /* Slightly larger for readability in serif */
-  color: var(--pv-fern); /* Matching subtitle color */
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--pv-fern);
   margin-bottom: 35px;
   opacity: 0.9;
 }
@@ -208,25 +228,77 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
 
 .pv-button:hover { background: var(--pv-fern); }
 
+/* --- ATTIRE & LOCATION --- */
+.attire-section, .location-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.no-border-top {
+  border-top: none !important;
+  position: relative;
+}
+
+.no-border-top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--pv-gold), transparent);
+}
+
+.divider-small {
+  width: 40px;
+  height: 1px;
+  background: var(--pv-gold);
+  margin: 15px auto;
+}
+
+.attire-text, .location-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.swatches {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.map-button {
+  display: inline-block;
+  padding: 12px 30px;
+  border: 1px solid var(--pv-gold);
+  color: var(--pv-dark-gold);
+  text-decoration: none;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+
+.map-button:hover {
+  background: var(--pv-gold);
+  color: white;
+}
+
 /* --- FOOTER --- */
 .footer { 
   text-align: center; 
   padding: 60px 20px; 
-  letter-spacing: 1px;
-}
-
-.address-block {
-  margin-bottom: 25px;
-  color: var(--pv-dark-gold);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.address-block p:first-child {
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 5px;
 }
 
 .footer-tag {
@@ -239,11 +311,11 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
   margin-top: 10px;
 }
 
-/* --- PREVIEW PAGE STYLES --- */
+/* --- PREVIEW PAGE --- */
 .preview-page {
   height: 100vh;
   width: 100%;
-  background-color: var(--pv-cream);
+  background-color: var(--pv-cream-dark); /* Warmer preview background */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -266,29 +338,6 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
   color: var(--pv-text);
 }
 
-.preview-date {
-  font-size: 0.9rem;
-  letter-spacing: 4px;
-  color: var(--pv-dark-gold);
-  font-weight: 600;
-}
-
-.preview-divider {
-  width: 60px;
-  height: 1px;
-  background: var(--pv-gold);
-  margin: 20px auto;
-}
-
-.preview-message {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 40px;
-  color: #555;
-}
-
 .preview-button {
   background: var(--pv-text);
   color: white;
@@ -301,256 +350,51 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
   transition: 0.3s;
 }
 
-.preview-button span {
-  display: block;
-  font-size: 0.6rem;
-  opacity: 0.6;
-  margin-top: 5px;
-  letter-spacing: 1px;
-}
+.preview-button:hover { background: var(--pv-fern); }
 
-.preview-button:hover {
-  background: var(--pv-fern);
-}
-
-/* --- FORM EXTRAS --- */
-.limit-hint {
-  font-size: 0.7rem;
-  color: var(--pv-dark-gold);
-  font-style: italic;
-  margin-top: 2px;
-}
-
-.fade-in {
-  animation: fadeInEffect 0.8s ease-in;
-}
-
-@keyframes fadeInEffect {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- RESPONSIVE DESIGN (MOBILE FIXES) --- */
-
-@media (max-width: 768px) {
-  /* 1. Adjust the Hero Header to be tall enough for the text + image */
-  .hero-header {
-    height: 70vh; /* Increased from 60vh to give the text more "room" */
-    min-height: 450px; /* Ensures it never gets too squashed */
-  }
-
-  /* 2. Scale down the large names and venue so they fit */
-  .names {
-    font-size: 2.4rem;
-    letter-spacing: 2px;
-  }
-
-  .venue-name {
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    margin-bottom: 40px; /* Pushes the text up away from the upcoming form */
-  }
-
-  /* 3. Reduce the negative margin so the form doesn't cover the text */
-  .rsvp-section {
-    margin-top: -30px; /* Reduced from -40px */
-    padding: 0 15px;
-  }
-
-  .pv-panel {
-    padding: 30px 15px;
-  }
-
-  /* 4. Fix the 2-column input row to stack */
-  .input-row {
-    grid-template-columns: 1fr; 
-    gap: 20px;
-  }
-
-  /* 5. Date string adjustments */
-  .date-string {
-    font-size: 1rem;
-    padding: 8px 15px;
-    width: auto; 
-    letter-spacing: 2px;
-  }
-
-  /* 6. Preview Page scaling */
-  .preview-names {
-    font-size: 2rem;
-  }
-}
-
-/* --- EXTRA TWEAK FOR MOBILE M (375px) AND SMALLER --- */
-@media (max-width: 400px) {
-  .hero-header {
-    height: 65vh;
-  }
-  
-  .names {
-    font-size: 2rem;
-  }
-
-  .venue-name {
-    font-size: 1rem;
-    margin-bottom: 60px; /* Extra breathing room */
-  }
-
-  .divider {
-    margin: 20px auto; /* Smaller divider spacing */
-  }
-}
-
-/* --- ATTIRE SECTION STYLES --- */
-.attire-section {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.no-border-top {
-  border-top: none !important;
-  position: relative;
-}
-
-/* This adds a delicate "line" that acts as a grid at the top of the Attire section */
-.no-border-top::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 10%; /* Makes the line slightly shorter than the box for a classy look */
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(
-    to right, 
-    transparent, 
-    var(--pv-gold), 
-    transparent
-  );
-}
-
-.divider-small {
-  width: 40px;
-  height: 1px;
-  background: var(--pv-gold);
-  margin: 15px auto;
-}
-
-.attire-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
-  line-height: 1.6;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.palette-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--pv-dark-gold);
-  margin-bottom: 15px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.swatches {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.swatch {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Ensure the second panel doesn't overlap the first on mobile */
-@media (max-width: 768px) {
-  .attire-section {
-    margin-top: 20px;
-    padding: 0 15px;
-  }
-}
-
-/* --- LOCATION SECTION STYLES --- */
-.location-section {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.location-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
-  line-height: 1.6;
-  margin-bottom: 25px;
-  color: var(--pv-text);
-}
-
-.map-container {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.map-button {
-  display: inline-block;
-  padding: 12px 30px;
-  border: 1px solid var(--pv-gold);
-  color: var(--pv-dark-gold);
-  text-decoration: none;
-  font-family: 'Playfair Display', serif;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  transition: all 0.3s ease;
-  background: transparent;
-}
-
-.map-button:hover {
-  background: var(--pv-gold);
-  color: white;
-  box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
-}
-
-.map-hint {
-  font-size: 0.8rem;
-  font-style: italic;
-  color: var(--pv-fern);
-  opacity: 0.8;
-}
-
-/* Ensure the Location section behaves on mobile */
-@media (max-width: 768px) {
-  .location-section {
-    padding: 0 15px;
-    margin-bottom: 40px; /* Space before the final footer */
-  }
-}
-
+/* --- WRAPPER & TEXTURE --- */
 .app-wrapper {
   position: relative;
   min-height: 100vh;
+  /* Updated overlay with the warmer cream */
   background: 
-    linear-gradient(rgba(253, 249, 240, 0.8), rgba(253, 249, 240, 0.8)),
+    linear-gradient(rgba(255, 251, 242, 0.85), rgba(255, 251, 242, 0.85)),
     url('https://www.transparenttextures.com/patterns/cream-paper.png');
   background-attachment: fixed;
 }
 
-/* This adds a subtle "paper grain" over the whole site */
 .app-wrapper::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.03; /* Very, very faint */
+  inset: 0;
+  opacity: 0.04; /* Slightly more visible texture for warmth */
   pointer-events: none;
   z-index: 1;
   background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+}
+
+/* --- ADDED NECESSARY LOGIC STYLES --- */
+
+.success-message {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.limit-hint {
+  font-size: 0.7rem;
+  color: var(--pv-dark-gold);
+  margin-top: 2px;
+  display: block;
+}
+
+.date-container {
+  display: block;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .hero-header { height: 70vh; min-height: 450px; }
+  .names { font-size: 2.4rem; }
+  .rsvp-section { margin-top: -30px; }
+  .input-row { grid-template-columns: 1fr; }
 }
