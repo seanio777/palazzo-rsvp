@@ -90,6 +90,56 @@ function App() {
             </form>
           </div>
         </section>
+
+        <section className="attire-section fade-in">
+          <div className="pv-panel no-border-top">
+            <h2 className="rsvp-title">Attire</h2>
+            <p className="rsvp-subtitle">Formal Garden Attire</p>
+            
+            <div className="divider-small"></div>
+            
+            <p className="attire-text">
+              We suggest floor-length dresses for women and <br />
+              suits or Barong Tagalog for men.
+            </p>
+
+            <div className="color-palette">
+              <p className="palette-label">Wedding Color Palette</p>
+              <div className="swatches">
+                <div className="swatch" style={{backgroundColor: '#3D5A35'}}></div>
+                <div className="swatch" style={{backgroundColor: '#C5A059'}}></div>
+                <div className="swatch" style={{backgroundColor: '#FDF9F0'}}></div>
+                <div className="swatch" style={{backgroundColor: '#2C2416'}}></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="location-section fade-in">
+          <div className="pv-panel no-border-top">
+            <h2 className="rsvp-title">The Venue</h2>
+            <p className="rsvp-subtitle">Notre Dame De Vie Chapel | Brittany Palazzo</p>
+            
+            <div className="divider-small"></div>
+            
+            <p className="location-text">
+              Daang Reyna, Vista Alabang, <br />
+              Las Piñas, 1750 Metro Manila
+            </p>
+
+            <div className="map-container">
+              <a 
+                href="https://maps.app.goo.gl/xW837dbaEcMzFSya9" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="map-button"
+              >
+                View on Google Maps
+              </a>
+              <p className="map-hint">Free parking is available within the vicinity.</p>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="footer">

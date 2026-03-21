@@ -369,3 +369,134 @@ input:focus { border-bottom: 1px solid var(--pv-fern); }
     margin: 20px auto; /* Smaller divider spacing */
   }
 }
+
+/* --- ATTIRE SECTION STYLES --- */
+.attire-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.no-border-top {
+  border-top: none !important;
+  position: relative;
+}
+
+/* This adds a delicate "line" that acts as a grid at the top of the Attire section */
+.no-border-top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%; /* Makes the line slightly shorter than the box for a classy look */
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    to right, 
+    transparent, 
+    var(--pv-gold), 
+    transparent
+  );
+}
+
+.divider-small {
+  width: 40px;
+  height: 1px;
+  background: var(--pv-gold);
+  margin: 15px auto;
+}
+
+.attire-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.palette-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--pv-dark-gold);
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.swatches {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Ensure the second panel doesn't overlap the first on mobile */
+@media (max-width: 768px) {
+  .attire-section {
+    margin-top: 20px;
+    padding: 0 15px;
+  }
+}
+
+/* --- LOCATION SECTION STYLES --- */
+.location-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.location-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: var(--pv-text);
+}
+
+.map-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.map-button {
+  display: inline-block;
+  padding: 12px 30px;
+  border: 1px solid var(--pv-gold);
+  color: var(--pv-dark-gold);
+  text-decoration: none;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.map-button:hover {
+  background: var(--pv-gold);
+  color: white;
+  box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
+}
+
+.map-hint {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--pv-fern);
+  opacity: 0.8;
+}
+
+/* Ensure the Location section behaves on mobile */
+@media (max-width: 768px) {
+  .location-section {
+    padding: 0 15px;
+    margin-bottom: 40px; /* Space before the final footer */
+  }
+}
