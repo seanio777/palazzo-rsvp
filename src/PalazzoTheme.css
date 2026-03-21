@@ -445,6 +445,31 @@ iframe:hover {
   display: block;
 }
 
+/* --- SCROLL TO TOP BUTTON --- */
+.scroll-top-btn {
+  background: transparent;
+  border: 1px solid var(--pv-gold);
+  color: var(--pv-dark-gold);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+}
+
+.scroll-top-btn:hover {
+  background: var(--pv-gold);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(197, 160, 89, 0.2);
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
   .hero-header { height: 70vh; min-height: 450px; }

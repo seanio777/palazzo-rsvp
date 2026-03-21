@@ -6,6 +6,10 @@ function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   // Track attendance to show the correct success message
   const [attendance, setAttendance] = useState('Happily Accepts');
+  
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -168,6 +172,9 @@ function App() {
       <footer className="footer reveal">
         <div className="footer-content">
           <div className="footer-divider"></div>
+          <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">
+            ↑
+          </button>
           <h2 className="footer-names">Chryzller <span className="amp">&</span> Sebastian</h2>
           <p className="footer-date">OCTOBER 24, 2026 • PALAZZO VERDE</p>
           <p className="footer-tag">MADE WITH LOVE FOR OUR FAMILY & FRIENDS</p>
