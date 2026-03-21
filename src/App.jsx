@@ -3,12 +3,12 @@ import './PalazzoTheme.css'
 
 function App() {
   const [showForm, setShowForm] = useState(false);
-  // NEW: State to track if the form was successfully sent
   const [isSubmitted, setIsSubmitted] = useState(false);
+  // Track attendance to show the correct success message
+  const [attendance, setAttendance] = useState('Happily Accepts');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Logic for sending data would go here
     setIsSubmitted(true);
   };
 
@@ -47,13 +47,23 @@ function App() {
       <main className="container">
         <section className="rsvp-section reveal">
           <div className="pv-panel">
-            {/* CONDITIONAL RENDERING: Show message if submitted, else show form */}
             {isSubmitted ? (
               <div className="success-message fade-in">
-                <h2 className="rsvp-title">Thank You!</h2>
-                <p className="rsvp-subtitle">Your RSVP has been sent successfully.</p>
-                <div className="divider-small"></div>
-                <p className="attire-text">We can't wait to celebrate with you!</p>
+                {attendance === 'Happily Accepts' ? (
+                  <>
+                    <h2 className="rsvp-title">Thank You!</h2>
+                    <p className="rsvp-subtitle">Your RSVP has been sent successfully.</p>
+                    <div className="divider-small"></div>
+                    <p className="attire-text">We can't wait to celebrate with you!</p>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="rsvp-title">We'll Miss You!</h2>
+                    <p className="rsvp-subtitle">Thank you for letting us know.</p>
+                    <div className="divider-small"></div>
+                    <p className="attire-text">Thank you for letting us know. We're sorry to<br />miss you, but we'll be thinking of you on the big day!</p>
+                  </>
+                )}
               </div>
             ) : (
               <>
@@ -72,9 +82,9 @@ function App() {
                   <div className="input-row">
                     <div className="input-group">
                       <label>Attendance</label>
-                      <select>
-                        <option>Happily Accepts</option>
-                        <option>Regretfully Declines</option>
+                      <select value={attendance} onChange={(e) => setAttendance(e.target.value)}>
+                        <option value="Happily Accepts">Happily Accepts</option>
+                        <option value="Regretfully Declines">Regretfully Declines</option>
                       </select>
                     </div>
                     <div className="input-group">
@@ -102,7 +112,6 @@ function App() {
           </div>
         </section>
 
-        {/* --- ATTIRE SECTION --- */}
         <section className="attire-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">Attire</h2>
@@ -124,7 +133,6 @@ function App() {
           </div>
         </section>
 
-        {/* --- LOCATION SECTION --- */}
         <section className="location-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">The Venue</h2>
@@ -135,7 +143,6 @@ function App() {
               Las Piñas, 1750 Metro Manila
             </p>
             <div className="map-container">
-              {/* The Iframe for the interactive map */}
               <iframe
                 title="Palazzo Verde Map"
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d966.2437811566513!2d121.008247967292!3d14.370851467002298!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d1e69968a175%3A0x91b8d8126ab138fc!2sNotre%20Dame%20De%20Vie%20Chapel!5e0!3m2!1sen!2sph!4v1774092328112!5m2!1sen!2sph"
@@ -148,7 +155,7 @@ function App() {
               ></iframe>
 
               <div style={{ marginTop: '20px' }}>
-                <a href="https://maps.app.goo.gl/kXk5hY3C8V8H9Y6A8" target="_blank" rel="noreferrer" className="map-button">
+                <a href="https://maps.app.goo.gl/H1b2USBkM9haTLLt9" target="_blank" rel="noreferrer" className="map-button">
                   Open in Google Maps App
                 </a>
               </div>
