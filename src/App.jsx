@@ -22,7 +22,7 @@ return (
 <div className="preview-page">
 <div className="preview-card fade-in">
 <p className="preview-date">OCTOBER 24, 2026</p>
-<h1 className="preview-names">Chryzller & Sebastian</h1>
+<h1 className="preview-names">Chryzller & Sebasthian</h1>
 <div className="preview-divider"></div>
 <p className="preview-message">
 We are getting married at Palazzo Verde.<br />
@@ -45,7 +45,7 @@ return (
 <div className="hero-overlay">
 <div className="hero-content fade-in">
 <p className="pre-title">The Wedding of</p>
-<h1 className="names">Chryzller <span className="amp">&</span> Sebastian</h1>
+<h1 className="names">Chryzller <span className="amp">&</span> Sebasthian</h1>
 <div className="divider"></div>
 <p className="venue-name">Palazzo Verde</p>
 <button className="hero-rsvp-btn" onClick={scrollToRSVP}>
@@ -245,7 +245,7 @@ Confirm Attendance
 <div className="footer-content">
 <div className="footer-divider"></div>
 <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">↑</button>
-<h2 className="footer-names">Chryzller <span className="amp">&</span> Sebastian</h2>
+<h2 className="footer-names">Chryzller <span className="amp">&</span> Sebasthian</h2>
 <p className="footer-date">OCTOBER 24, 2026 • PALAZZO VERDE</p>
 <p className="footer-tag">MADE WITH LOVE FOR OUR FAMILY & FRIENDS</p>
 </div>
