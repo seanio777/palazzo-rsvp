@@ -74,11 +74,7 @@ function App() {
 
             {/* Bride & Groom Photo placeholder */}
             <div className="couple-photo-wrap">
-              <div className="couple-photo-placeholder">
-                {/* ← REPLACE with: <img src="/couple.jpg" alt="Chryzller & Sebastian" className="couple-photo-img" /> */}
-                <span className="couple-photo-icon">💑</span>
-                <span className="couple-photo-hint">Photo Coming Soon</span>
-              </div>
+                <img src="/rsvp-photo.jpg" alt="Chryzller & Sebastian" className="couple-photo-img" />
             </div>
 
             <p className="pre-title">The Wedding of</p>
@@ -123,9 +119,7 @@ function App() {
 
             {/* Venue Photo Placeholder */}
             <div className="venue-photo-placeholder">
-              {/* ← REPLACE with: <img src="/venue.jpg" alt="Palazzo Verde" className="venue-photo-img" /> */}
-              <span className="venue-photo-icon">🏛️</span>
-              <span className="venue-photo-hint">Venue Photo Coming Soon</span>
+              <img src="/venue.jpg" alt="Palazzo Verde" className="venue-photo-img" />
             </div>
 
             {/* Wedding Venue */}
@@ -196,7 +190,7 @@ function App() {
 
                 <div className="attire-photo-placeholder">
                 <img
-                    src="/public/attire-men.jpg"
+                    src="/public/attire-men.png"
                     alt="Men's Attire"
                     style={{
                     width: '100%',
