@@ -739,3 +739,385 @@ textarea {
     padding: 28px 18px;
   }
 }
+
+/* ============================================================
+   WEDDING RSVP ADDITIONS — paste at the bottom of PalazzoTheme.css
+   ============================================================ */
+
+/* ── Couple Photo (Hero) ─────────────────────────────────── */
+.couple-photo-wrap {
+  margin-bottom: 28px;
+}
+
+.couple-photo-placeholder {
+  width: 180px;
+  height: 220px;
+  margin: 0 auto;
+  border: 1px solid rgba(197,160,89,0.4);
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.couple-photo-img {
+  width: 180px;
+  height: 220px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 4px;
+  border: 1px solid rgba(197,160,89,0.4);
+}
+
+.couple-photo-icon { font-size: 2.5rem; opacity: 0.6; }
+
+.couple-photo-hint {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* ── Venue Photo ─────────────────────────────────────────── */
+.venue-photo-placeholder {
+  width: 100%;
+  height: 200px;
+  border: 1px dashed rgba(197,160,89,0.4);
+  background: rgba(197,160,89,0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 4px;
+  margin-bottom: 32px;
+}
+
+.venue-photo-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 32px;
+}
+
+.venue-photo-icon  { font-size: 2.5rem; opacity: 0.4; }
+.venue-photo-hint  { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.4; font-family: 'Cormorant Garamond', serif; }
+
+/* ── Venue Blocks ────────────────────────────────────────── */
+.venue-block { text-align: center; margin-bottom: 20px; }
+
+.venue-type-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--pv-dark-gold);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.venue-block-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--pv-text);
+  margin-bottom: 4px;
+}
+
+.venue-block-sub {
+  font-style: italic;
+  color: var(--pv-fern);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.venue-divider {
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(197,160,89,0.3), transparent);
+  margin: 24px auto;
+}
+
+/* ── Attire Photos ───────────────────────────────────────── */
+.attire-photos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.attire-photo-placeholder {
+  height: 200px;
+  border: 1px dashed rgba(197,160,89,0.4);
+  background: rgba(197,160,89,0.03);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.attire-photo-icon  { font-size: 2.5rem; opacity: 0.5; }
+.attire-photo-label { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--pv-text); }
+.attire-photo-hint  { font-size: 0.68rem; letter-spacing: 0.1em; color: var(--pv-dark-gold); text-transform: uppercase; }
+
+/* ── Entourage ───────────────────────────────────────────── */
+.entourage-section { margin-top: 30px; text-align: center; }
+
+.entourage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  text-align: left;
+}
+
+.entourage-group {}
+
+.entourage-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--pv-text);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(197,160,89,0.25);
+}
+
+.entourage-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.entourage-list li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--pv-text);
+  opacity: 0.85;
+  padding-left: 12px;
+  border-left: 2px solid rgba(197,160,89,0.3);
+}
+
+/* ── Program Flow ────────────────────────────────────────── */
+.program-section { margin-top: 30px; text-align: center; }
+
+.program-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-align: left;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.program-item {
+  display: grid;
+  grid-template-columns: 80px 20px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(197,160,89,0.1);
+  transition: background 0.2s ease;
+}
+
+.program-item:last-child { border-bottom: none; }
+
+.program-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--pv-dark-gold);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+.program-dot {
+  color: var(--pv-gold);
+  font-size: 0.5rem;
+  text-align: center;
+}
+
+.program-event {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--pv-text);
+}
+
+/* ── DOs and DON'Ts ──────────────────────────────────────── */
+.rules-section { margin-top: 30px; text-align: center; }
+
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  text-align: left;
+}
+
+.rules-col {}
+
+.rules-col-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(197,160,89,0.25);
+}
+
+.rules-col.dos .rules-col-title  { color: var(--pv-fern); }
+.rules-col.donts .rules-col-title { color: #c0392b; }
+
+.rules-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rules-list li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--pv-text);
+  opacity: 0.85;
+  line-height: 1.5;
+  padding-left: 10px;
+}
+
+.dos .rules-list li    { border-left: 2px solid rgba(61,90,53,0.4); }
+.donts .rules-list li  { border-left: 2px solid rgba(192,57,43,0.4); }
+
+/* ── RSVP Counter ────────────────────────────────────────── */
+.rsvp-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: rgba(197,160,89,0.05);
+  border: 1px solid rgba(197,160,89,0.2);
+  border-radius: 8px;
+  padding: 16px 0;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.counter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 24px;
+}
+
+.counter-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--pv-text);
+}
+
+.counter-value.accept { color: var(--pv-fern); }
+.counter-value.decline { color: #c0392b; }
+
+.counter-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--pv-dark-gold);
+  font-weight: 600;
+}
+
+.counter-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(197,160,89,0.2);
+  flex-shrink: 0;
+}
+
+/* ── RSVP Report ─────────────────────────────────────────── */
+.report-section { margin-top: 30px; text-align: left; }
+
+.report-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.report-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px;
+  background: rgba(197,160,89,0.03);
+  border: 1px solid rgba(197,160,89,0.15);
+  border-radius: 6px;
+}
+
+.report-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(197,160,89,0.1);
+  border: 1px solid rgba(197,160,89,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pv-dark-gold);
+  flex-shrink: 0;
+  font-family: 'Playfair Display', serif;
+}
+
+.report-details { flex: 1; min-width: 0; }
+
+.report-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--pv-text);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.report-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.report-status {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.report-status.accept  { background: rgba(61,90,53,0.1);  color: var(--pv-fern); border: 1px solid rgba(61,90,53,0.3); }
+.report-status.decline { background: rgba(192,57,43,0.1); color: #c0392b; border: 1px solid rgba(192,57,43,0.3); }
+
+.report-guests  { font-size: 0.82rem; color: var(--pv-dark-gold); font-family: 'Cormorant Garamond', serif; }
+.report-message { font-size: 0.82rem; color: #6b5d4f; font-style: italic; font-family: 'Cormorant Garamond', serif; }
+.report-timestamp { font-size: 0.7rem; color: rgba(107,93,79,0.5); font-family: 'Cormorant Garamond', serif; }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .rules-grid          { grid-template-columns: 1fr; }
+  .attire-photos-grid  { grid-template-columns: 1fr; }
+  .entourage-grid      { grid-template-columns: 1fr 1fr; }
+  .rsvp-counter        { gap: 8px; }
+  .counter-item        { padding: 0 14px; }
+  .counter-divider     { height: 30px; }
+  .program-item        { grid-template-columns: 70px 16px 1fr; gap: 8px; }
+}
