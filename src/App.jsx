@@ -74,11 +74,11 @@ function App() {
 
             {/* Bride & Groom Photo placeholder */}
             <div className="couple-photo-wrap">
-                <img src="/rsvp-photo.jpg" alt="Chryzller & Sebastian" className="couple-photo-img" />
+                <img src="/rsvp-photo.jpg" alt="Chryzller & Sebasthian" className="couple-photo-img" />
             </div>
 
             <p className="pre-title">The Wedding of</p>
-            <h1 className="names">Chryzller <span className="amp">&</span> Sebastian</h1>
+            <h1 className="names">Chryzller <span className="amp">&</span> Sebasthian</h1>
             <div className="divider"></div>
             <p className="venue-name">Palazzo Verde</p>
             <button className="hero-rsvp-btn" onClick={scrollToRSVP}>RSVP Now</button>
@@ -573,7 +573,7 @@ function App() {
         <div className="footer-content">
           <div className="footer-divider"></div>
           <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">↑</button>
-          <h2 className="footer-names">Chryzller <span className="amp">&</span> Sebastian</h2>
+          <h2 className="footer-names">Chryzller <span className="amp">&</span> Sebasthian</h2>
           <p className="footer-date">OCTOBER 24, 2026 • PALAZZO VERDE</p>
           <p className="footer-tag">MADE WITH LOVE FOR OUR FAMILY & FRIENDS</p>
         </div>
