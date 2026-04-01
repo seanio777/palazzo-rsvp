@@ -117,12 +117,29 @@ function App() {
             <h2 className="rsvp-title">The Venue</h2>
             <div className="divider-small"></div>
 
-            {/* Venue Photo Placeholder */}
-            <div className="venue-photo-placeholder">
-              <img src="/venue.jpg" alt="Palazzo Verde" className="venue-photo-img" />
+            // Two separate venue photos
+            <div className="venue-photos-row">
+              <div className="venue-photo-box">
+                <p className="venue-photo-box-label">⛪ Chapel</p>
+                <div className="venue-photo-placeholder">
+                  // ← REPLACE inner content with:
+                  // <img src="/venue-chapel.jpg" alt="Notre Dame De Vie Chapel" className="venue-photo-img" />
+                  <span className="venue-photo-icon">⛪</span>
+                  <span className="venue-photo-hint">Chapel Photo Coming Soon</span>
+                </div>
+              </div>
+              <div className="venue-photo-box">
+                <p className="venue-photo-box-label">🥂 Reception</p>
+                <div className="venue-photo-placeholder">
+                  // ← REPLACE inner content with:
+                  // <img src="/venue-reception.jpg" alt="Palazzo Verde Reception" className="venue-photo-img" />
+                  <span className="venue-photo-icon">🏛️</span>
+                  <span className="venue-photo-hint">Reception Photo Coming Soon</span>
+                </div>
+              </div>
             </div>
 
-            {/* Wedding Venue */}
+            // Wedding Venue
             <div className="venue-block">
               <p className="venue-type-label">⛪ Wedding Ceremony</p>
               <h3 className="venue-block-title">Notre Dame De Vie Chapel</h3>
@@ -135,7 +152,7 @@ function App() {
 
             <div className="venue-divider" />
 
-            {/* Reception Venue */}
+            // Reception Venue
             <div className="venue-block">
               <p className="venue-type-label">🥂 Reception</p>
               <h3 className="venue-block-title">Palazzo Verde</h3>
@@ -146,18 +163,18 @@ function App() {
               </p>
             </div>
 
-            {/* Map */}
+            // Map — NOTE: add &output=embed to remove the top button from the iframe
             <div className="map-container">
               <iframe
                 title="Palazzo Verde Map"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d966.2437811566513!2d121.008247967292!3d14.370851467002298!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d1e69968a175%3A0x91b8d8126ab138fc!2sNotre%20Dame%20De%20Vie%20Chapel!5e0!3m2!1sen!2sph!4v1774092328112!5m2!1sen!2sph"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d966.2437811566513!2d121.008247967292!3d14.370851467002298!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d1e69968a175%3A0x91b8d8126ab138fc!2sNotre%20Dame%20De%20Vie%20Chapel!5e0!3m2!1sen!2sph!4v1774092328112!5m2!1sen!2sph&output=embed"
                 width="100%" height="300"
                 style={{ border:0, marginTop:'20px', borderRadius:'4px' }}
                 allowFullScreen="" loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
               <div style={{ marginTop:'20px' }}>
-                <a href="https://www.google.com/maps/dir//Notre+Dame+De+Vie+Chapel" target="_blank" rel="noreferrer" className="map-button">
+                <a href="https://www.google.com/maps?cid=10500380104825321724&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB&hl=en&gl=PH&source=embed" target="_blank" rel="noreferrer" className="map-button">
                   Open in Google Maps
                 </a>
               </div>
@@ -165,6 +182,7 @@ function App() {
             </div>
           </div>
         </section>
+
 
         {/* ── Attire ── */}
         <section className="attire-section reveal">
@@ -229,54 +247,103 @@ function App() {
               <div className="entourage-group">
                 <h3 className="entourage-title">👴 Ninong</h3>
                 <ul className="entourage-list">
-                  <li>Mr. [Ninong Name 1]</li>{/* ← REPLACE */}
-                  <li>Mr. [Ninong Name 2]</li>
-                  <li>Mr. [Ninong Name 3]</li>
+                  <li>Mr. Roberto Dela Cruz</li>
+                  <li>Mr. Antonio Reyes</li>
+                  <li>Mr. Eduardo Santos</li>
+                  <li>Mr. Marcelino Garcia</li>
                 </ul>
               </div>
 
               <div className="entourage-group">
                 <h3 className="entourage-title">👵 Ninang</h3>
                 <ul className="entourage-list">
-                  <li>Mrs. [Ninang Name 1]</li>{/* ← REPLACE */}
-                  <li>Mrs. [Ninang Name 2]</li>
-                  <li>Mrs. [Ninang Name 3]</li>
+                  <li>Mrs. Corazon Dela Cruz</li>
+                  <li>Mrs. Ligaya Reyes</li>
+                  <li>Mrs. Esperanza Santos</li>
+                  <li>Mrs. Felicidad Garcia</li>
                 </ul>
               </div>
 
               <div className="entourage-group">
-                <h3 className="entourage-title">💐 Abay (Bridesmaids)</h3>
+                <h3 className="entourage-title">💐 Bridesmaids</h3>
                 <ul className="entourage-list">
-                  <li>[Abay Name 1]</li>{/* ← REPLACE */}
-                  <li>[Abay Name 2]</li>
-                  <li>[Abay Name 3]</li>
+                  <li>Ms. Andrea Villanueva</li>
+                  <li>Ms. Bianca Lim</li>
+                  <li>Ms. Camille Torres</li>
                 </ul>
               </div>
 
               <div className="entourage-group">
                 <h3 className="entourage-title">🤵 Groomsmen</h3>
                 <ul className="entourage-list">
-                  <li>[Groomsman Name 1]</li>{/* ← REPLACE */}
-                  <li>[Groomsman Name 2]</li>
-                  <li>[Groomsman Name 3]</li>
+                  <li>Mr. Daniel Mendoza</li>
+                  <li>Mr. Ethan Cruz</li>
+                  <li>Mr. Franco Ramos</li>
+                </ul>
+              </div>
+
+              <div className="entourage-group">
+                <h3 className="entourage-title">🌸 Maid of Honor</h3>
+                <ul className="entourage-list">
+                  <li>Ms. Gabriela Aquino</li>
+                </ul>
+              </div>
+
+              <div className="entourage-group">
+                <h3 className="entourage-title">🤵 Best Man</h3>
+                <ul className="entourage-list">
+                  <li>Mr. Hector Navarro</li>
                 </ul>
               </div>
 
               <div className="entourage-group">
                 <h3 className="entourage-title">💍 Ring Bearer</h3>
                 <ul className="entourage-list">
-                  <li>[Ring Bearer Name]</li>{/* ← REPLACE */}
+                  <li>Master Ivan Santos</li>
                 </ul>
               </div>
 
               <div className="entourage-group">
                 <h3 className="entourage-title">🌸 Flower Girl</h3>
                 <ul className="entourage-list">
-                  <li>[Flower Girl Name]</li>{/* ← REPLACE */}
+                  <li>Little Julia Reyes</li>
+                </ul>
+              </div>
+
+              <div className="entourage-group">
+                <h3 className="entourage-title">🕯️ Candle Bearers</h3>
+                <ul className="entourage-list">
+                  <li>Ms. Karen Bautista</li>
+                  <li>Mr. Luis Castillo</li>
+                </ul>
+              </div>
+
+              <div className="entourage-group">
+                <h3 className="entourage-title">🎀 Cord Sponsors</h3>
+                <ul className="entourage-list">
+                  <li>Mr. & Mrs. Marco Dela Rosa</li>
+                  <li>Mr. & Mrs. Nestor Villaluz</li>
+                </ul>
+              </div>
+
+              <div className="entourage-group">
+                <h3 className="entourage-title">🍞 Bible & Coins Bearers</h3>
+                <ul className="entourage-list">
+                  <li>Master Oscar Mendez</li>
+                  <li>Little Patricia Cruz</li>
+                </ul>
+              </div>
+
+              <div className="entourage-group">
+                <h3 className="entourage-title">📸 Principal Sponsors</h3>
+                <ul className="entourage-list">
+                  <li>Mr. & Mrs. Quintin Soriano</li>
+                  <li>Mr. & Mrs. Ramon Florendo</li>
                 </ul>
               </div>
 
             </div>
+
           </div>
         </section>
 
@@ -487,7 +554,20 @@ function App() {
         )}
 
       </main>
-
+      <button
+        className="music-btn"
+        onClick={() => {
+          if (audioRef.current.paused) {
+            audioRef.current.play()
+          } else {
+            audioRef.current.pause()
+          }
+        }}
+        title="Toggle background music"
+      >
+        🎵
+      </button>
+          
       {/* ── Footer ── */}
       <footer className="footer reveal">
         <div className="footer-content">

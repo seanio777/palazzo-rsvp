@@ -1121,3 +1121,140 @@ textarea {
   .counter-divider     { height: 30px; }
   .program-item        { grid-template-columns: 70px 16px 1fr; gap: 8px; }
 }
+
+/* ── Fix 2: Hero couple photo position ── */
+/* Pushes the hero content down slightly so the photo is fully visible */
+.hero-header {
+  height: 85vh !important;         /* slightly taller */
+  min-height: 500px;
+}
+ 
+.hero-content {
+  padding-top: 60px !important;    /* push content down from top */
+  justify-content: center;
+  width: 100%;
+}
+ 
+.couple-photo-wrap {
+  margin-bottom: 20px;
+}
+ 
+.couple-photo-placeholder,
+.couple-photo-img {
+  width: 160px !important;
+  height: 200px !important;
+  margin: 0 auto;
+}
+ 
+/* ── Fix 3: Venue name overlapping details strip ── */
+/* Add more bottom margin to venue name so it clears the strip */
+.venue-name {
+  margin-bottom: 20px !important;
+}
+ 
+.details-strip {
+  margin-top: 0 !important;        /* remove negative top margin that caused overlap */
+}
+ 
+.details-strip-inner {
+  margin-top: 0 !important;        /* strip sits right below hero */
+}
+ 
+/* ── Fix 4 & 5: Venue photo — two separate boxes ── */
+.venue-photos-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+ 
+.venue-photo-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+ 
+.venue-photo-box-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--pv-dark-gold);
+  font-weight: 600;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+}
+ 
+.venue-photo-placeholder {
+  width: 100% !important;
+  height: 160px !important;
+  border: 1px dashed rgba(197,160,89,0.4);
+  background: rgba(197,160,89,0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0 !important;
+}
+ 
+.venue-photo-img {
+  width: 100% !important;
+  height: 160px !important;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0 !important;
+}
+ 
+/* ── Fix 6: Remove the external map button on top of iframe ── */
+/* This hides any links/buttons that appear inside the map container
+   EXCEPT the "Open in Google Maps" button we explicitly added */
+.map-container iframe {
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+}
+ 
+/* The iframe overlay button from Google is removed via the 
+   ?output=embed parameter — see App.jsx note below */
+ 
+/* ── Background music button (small floating indicator) ── */
+.music-btn {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 500;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid var(--pv-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 16px rgba(197,160,89,0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+ 
+.music-btn:hover {
+  background: var(--pv-gold);
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(197,160,89,0.35);
+}
+ 
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .venue-photos-row {
+    grid-template-columns: 1fr;
+  }
+ 
+  .couple-photo-placeholder,
+  .couple-photo-img {
+    width: 130px !important;
+    height: 165px !important;
+  }
+}
