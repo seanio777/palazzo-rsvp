@@ -43,7 +43,7 @@ function App() {
       <div className="preview-page">
         <div className="preview-card fade-in">
           <p className="preview-date">OCTOBER 24, 2026</p>
-          <h1 className="preview-names">Chryzller & Sebastian</h1>
+          <h1 className="preview-names">Chryzller & Sebasthian</h1>
           <div className="preview-divider"></div>
           <p className="preview-message">
             We are getting married at Palazzo Verde.<br />
