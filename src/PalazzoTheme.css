@@ -1186,7 +1186,7 @@ textarea {
  
 .venue-photo-placeholder {
   width: 100% !important;
-  height: 160px !important;
+  height: 240px !important;
   border: 1px dashed rgba(197,160,89,0.4);
   background: rgba(197,160,89,0.03);
   display: flex;
@@ -1201,7 +1201,7 @@ textarea {
  
 .venue-photo-img {
   width: 100% !important;
-  height: 160px !important;
+  height: 240px !important;
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 0 !important;

@@ -117,53 +117,47 @@ function App() {
             <h2 className="rsvp-title">The Venue</h2>
             <div className="divider-small"></div>
 
-            // Two separate venue photos
-            <div className="venue-photos-row">
-              <div className="venue-photo-box">
-                <p className="venue-photo-box-label">⛪ Chapel</p>
-                <div className="venue-photo-placeholder">
-                  // ← REPLACE inner content with:
-                  // <img src="/venue-chapel.jpg" alt="Notre Dame De Vie Chapel" className="venue-photo-img" />
-                  <span className="venue-photo-icon">⛪</span>
-                  <span className="venue-photo-hint">Chapel Photo Coming Soon</span>
-                </div>
+            {/* ── Chapel ── */}
+            <div className="venue-photo-box" style={{ marginBottom: 32 }}>
+              <div className="venue-photo-placeholder">
+                {/* ← REPLACE with: <img src="/venue-chapel.jpg" alt="Notre Dame De Vie Chapel" className="venue-photo-img" /> */}
+                <span className="venue-photo-icon">⛪</span>
+                <span className="venue-photo-hint">Chapel Photo Coming Soon</span>
               </div>
-              <div className="venue-photo-box">
-                <p className="venue-photo-box-label">🥂 Reception</p>
-                <div className="venue-photo-placeholder">
-                  // ← REPLACE inner content with:
-                  // <img src="/venue-reception.jpg" alt="Palazzo Verde Reception" className="venue-photo-img" />
-                  <span className="venue-photo-icon">🏛️</span>
-                  <span className="venue-photo-hint">Reception Photo Coming Soon</span>
-                </div>
+              <div className="venue-block" style={{ marginTop: 20, marginBottom: 0 }}>
+                <p className="venue-type-label">⛪ Wedding Ceremony</p>
+                <h3 className="venue-block-title">Notre Dame De Vie Chapel</h3>
+                <p className="venue-block-sub">Brittany Palazzo · Palazzo Verde</p>
+                <p className="location-text">
+                  Daang Reyna, Vista Alabang,<br />
+                  Las Piñas, 1750 Metro Manila
+                </p>
               </div>
-            </div>
-
-            // Wedding Venue
-            <div className="venue-block">
-              <p className="venue-type-label">⛪ Wedding Ceremony</p>
-              <h3 className="venue-block-title">Notre Dame De Vie Chapel</h3>
-              <p className="venue-block-sub">Brittany Palazzo · Palazzo Verde</p>
-              <p className="location-text">
-                Daang Reyna, Vista Alabang,<br />
-                Las Piñas, 1750 Metro Manila
-              </p>
             </div>
 
             <div className="venue-divider" />
 
-            // Reception Venue
-            <div className="venue-block">
-              <p className="venue-type-label">🥂 Reception</p>
-              <h3 className="venue-block-title">Palazzo Verde</h3>
-              <p className="venue-block-sub">Brittany Palazzo</p>
-              <p className="location-text">
-                Daang Reyna, Vista Alabang,<br />
-                Las Piñas, 1750 Metro Manila
-              </p>
+            {/* ── Reception ── */}
+            <div className="venue-photo-box" style={{ marginBottom: 32 }}>
+              <div className="venue-photo-placeholder">
+                {/* ← REPLACE with: <img src="/venue-reception.jpg" alt="Palazzo Verde Reception" className="venue-photo-img" /> */}
+                <span className="venue-photo-icon">🏛️</span>
+                <span className="venue-photo-hint">Reception Photo Coming Soon</span>
+              </div>
+              <div className="venue-block" style={{ marginTop: 20, marginBottom: 0 }}>
+                <p className="venue-type-label">🥂 Reception</p>
+                <h3 className="venue-block-title">Palazzo Verde</h3>
+                <p className="venue-block-sub">Brittany Palazzo</p>
+                <p className="location-text">
+                  Daang Reyna, Vista Alabang,<br />
+                  Las Piñas, 1750 Metro Manila
+                </p>
+              </div>
             </div>
 
-            // Map — NOTE: add &output=embed to remove the top button from the iframe
+            <div className="venue-divider" />
+
+            {/* ── Map ── */}
             <div className="map-container">
               <iframe
                 title="Palazzo Verde Map"
@@ -174,7 +168,11 @@ function App() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
               <div style={{ marginTop:'20px' }}>
-                <a href="https://www.google.com/maps?cid=10500380104825321724&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB&hl=en&gl=PH&source=embed" target="_blank" rel="noreferrer" className="map-button">
+                <a
+                  href="https://www.google.com/maps?cid=10500380104825321724&hl=en&gl=PH&source=embed"
+                  target="_blank" rel="noreferrer"
+                  className="map-button"
+                >
                   Open in Google Maps
                 </a>
               </div>
