@@ -63,7 +63,7 @@ function App() {
 
       {/* ── Theme Song (hidden audio) ── */}
       <audio ref={audioRef} loop style={{ display:'none' }}>
-        <source src="/theme-song.mp3" type="audio/mpeg" />
+        <source src="/bg-music.mp3" type="audio/mpeg" />
         {/* ← REPLACE with your actual theme song file */}
       </audio>
 
@@ -120,9 +120,7 @@ function App() {
             {/* ── Chapel ── */}
             <div className="venue-photo-box" style={{ marginBottom: 32 }}>
               <div className="venue-photo-placeholder">
-                {/* ← REPLACE with: <img src="/venue-chapel.jpg" alt="Notre Dame De Vie Chapel" className="venue-photo-img" /> */}
-                <span className="venue-photo-icon">⛪</span>
-                <span className="venue-photo-hint">Chapel Photo Coming Soon</span>
+                <img src="/chapel.jpg" alt="Notre Dame De Vie Chapel" className="venue-photo-img" />
               </div>
               <div className="venue-block" style={{ marginTop: 20, marginBottom: 0 }}>
                 <p className="venue-type-label">⛪ Wedding Ceremony</p>
