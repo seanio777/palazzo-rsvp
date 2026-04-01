@@ -193,7 +193,7 @@ function App() {
             <div className="attire-photos-grid">
               <div className="attire-photo-placeholder">
                 <img
-                    src="/public/attire-women.jpg"
+                    src="/attire-women.jpg"
                     alt="Women's Attire"
                     style={{
                     width: '100%',
@@ -206,7 +206,7 @@ function App() {
 
                 <div className="attire-photo-placeholder">
                 <img
-                    src="/public/attire-men.png"
+                    src="/attire-men.png"
                     alt="Men's Attire"
                     style={{
                     width: '100%',
