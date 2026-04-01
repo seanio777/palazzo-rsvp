@@ -1,43 +1,99 @@
 import { useState, useEffect, useRef } from 'react'
 import './PalazzoTheme.css'
 
-// ── RSVP Responses Storage (in-memory) ─────────────────────
-// In a real app this would be a backend/database
 let rsvpResponses = []
 
 function App() {
-  const [showForm, setShowForm]     = useState(false)
+  const [showForm, setShowForm]       = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [attendance, setAttendance]  = useState('Happily Accepts')
-  const [responses, setResponses]    = useState([])
-  const [showReport, setShowReport]  = useState(false)
+  const [attendance, setAttendance]   = useState('Happily Accepts')
+  const [responses, setResponses]     = useState([])
+  const [showReport, setShowReport]   = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isPlaying, setIsPlaying]     = useState(false)
   const audioRef = useRef(null)
+  const carouselRef = useRef(null)
 
-  const scrollToTop  = () => window.scrollTo({ top:0, behavior:'smooth' })
-  const scrollToRSVP = () => document.getElementById('rsvp-section')?.scrollIntoView({ behavior:'smooth' })
+  // ── Carousel photos — add your 4 filenames here ──────────
+  const couplePhotos = [
+    '/rsvp-photo.jpg',       // ← REPLACE with your actual filenames
+    '/rsvp-photo-2.jpg',     // ← REPLACE
+    '/rsvp-photo-3.jpg',     // ← REPLACE
+    '/rsvp-photo-4.jpg',     // ← REPLACE
+  ]
+
+  // Auto-advance carousel every 4 seconds
+  useEffect(() => {
+    if (!showForm) return
+    const timer = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % couplePhotos.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [showForm, couplePhotos.length])
+
+  // Auto-play music when main invitation loads
+  useEffect(() => {
+    if (!showForm) return
+    const tryPlay = () => {
+      if (audioRef.current) {
+        audioRef.current.volume = 0.4
+        audioRef.current.play()
+          .then(() => setIsPlaying(true))
+          .catch(() => {
+            // Autoplay blocked — wait for first user interaction
+            const unlock = () => {
+              audioRef.current?.play()
+                .then(() => {
+                  setIsPlaying(true)
+                  document.removeEventListener('click', unlock)
+                  document.removeEventListener('touchstart', unlock)
+                })
+                .catch(() => {})
+            }
+            document.addEventListener('click', unlock, { once: true })
+            document.addEventListener('touchstart', unlock, { once: true })
+          })
+      }
+    }
+    // Small delay to let DOM settle
+    const t = setTimeout(tryPlay, 600)
+    return () => clearTimeout(t)
+  }, [showForm])
+
+  const toggleMusic = () => {
+    if (!audioRef.current) return
+    if (audioRef.current.paused) {
+      audioRef.current.play().then(() => setIsPlaying(true))
+    } else {
+      audioRef.current.pause()
+      setIsPlaying(false)
+    }
+  }
+
+  const scrollToTop  = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+  const scrollToRSVP = () => document.getElementById('rsvp-section')?.scrollIntoView({ behavior: 'smooth' })
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.target
     const newResponse = {
-      id:        Date.now(),
-      name:      form.fullName.value,
+      id:         Date.now(),
+      name:       form.fullName.value,
       attendance: attendance,
       companions: form.companions.value,
-      message:   form.message?.value || '',
-      timestamp: new Date().toLocaleString('en-PH'),
+      message:    form.message?.value || '',
+      timestamp:  new Date().toLocaleString('en-PH'),
     }
     rsvpResponses = [...rsvpResponses, newResponse]
     setResponses([...rsvpResponses])
     setIsSubmitted(true)
   }
 
-  // Attendees/declines count
-  const accepted  = responses.filter(r => r.attendance === 'Happily Accepts').length
-  const declined  = responses.filter(r => r.attendance === 'Regretfully Declines').length
+  const accepted    = responses.filter(r => r.attendance === 'Happily Accepts').length
+  const declined    = responses.filter(r => r.attendance === 'Regretfully Declines').length
   const totalGuests = responses.reduce((sum, r) => sum + parseInt(r.companions || 1), 0)
 
-  // ── Preview ────────────────────────────────────────────────
+  // ── Preview page ───────────────────────────────────────────
   if (!showForm) {
     return (
       <div className="preview-page">
@@ -57,14 +113,13 @@ function App() {
     )
   }
 
-  // ── Main Invitation ────────────────────────────────────────
+  // ── Main invitation ────────────────────────────────────────
   return (
     <div className="app-wrapper fade-in">
 
-      {/* ── Theme Song (hidden audio) ── */}
-      <audio ref={audioRef} loop style={{ display:'none' }}>
+      {/* Hidden audio — autoplay handled above */}
+      <audio ref={audioRef} loop style={{ display: 'none' }}>
         <source src="/bg-music.mp3" type="audio/mpeg" />
-        {/* ← REPLACE with your actual theme song file */}
       </audio>
 
       {/* ── Hero ── */}
@@ -72,9 +127,50 @@ function App() {
         <div className="hero-overlay">
           <div className="hero-content fade-in">
 
-            {/* Bride & Groom Photo placeholder */}
-            <div className="couple-photo-wrap">
-                <img src="/rsvp-photo.jpg" alt="Chryzller & Sebasthian" className="couple-photo-img" />
+            {/* ── Infinite Carousel ── */}
+            <div className="carousel-wrap">
+              <div
+                className="carousel-track"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {couplePhotos.map((src, i) => (
+                  <div className="carousel-slide" key={i}>
+                    <img
+                      src={src}
+                      alt={`Couple photo ${i + 1}`}
+                      className="carousel-img"
+                      onError={e => {
+                        e.target.style.display = 'none'
+                        e.target.parentNode.style.background = 'rgba(255,255,255,0.05)'
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Dot indicators */}
+              <div className="carousel-dots">
+                {couplePhotos.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`carousel-dot ${i === currentSlide ? 'active' : ''}`}
+                    onClick={() => setCurrentSlide(i)}
+                    aria-label={`Go to photo ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Prev / Next arrows */}
+              <button
+                className="carousel-arrow carousel-arrow-left"
+                onClick={() => setCurrentSlide(prev => (prev - 1 + couplePhotos.length) % couplePhotos.length)}
+                aria-label="Previous photo"
+              >‹</button>
+              <button
+                className="carousel-arrow carousel-arrow-right"
+                onClick={() => setCurrentSlide(prev => (prev + 1) % couplePhotos.length)}
+                aria-label="Next photo"
+              >›</button>
             </div>
 
             <p className="pre-title">The Wedding of</p>
@@ -88,7 +184,7 @@ function App() {
 
       <main className="container">
 
-        {/* ── Details Strip ── */}
+        {/* Details Strip */}
         <section className="details-strip reveal">
           <div className="details-strip-inner">
             <div className="detail-item">
@@ -111,13 +207,13 @@ function App() {
           </div>
         </section>
 
-        {/* ── Venue ── */}
+        {/* Venue */}
         <section className="location-section reveal">
           <div className="pv-panel">
             <h2 className="rsvp-title">The Venue</h2>
             <div className="divider-small"></div>
 
-            {/* ── Chapel ── */}
+            {/* Chapel */}
             <div className="venue-photo-box" style={{ marginBottom: 32 }}>
               <div className="venue-photo-placeholder">
                 <img src="/chapel.jpg" alt="Notre Dame De Vie Chapel" className="venue-photo-img" />
@@ -135,10 +231,9 @@ function App() {
 
             <div className="venue-divider" />
 
-            {/* ── Reception ── */}
+            {/* Reception */}
             <div className="venue-photo-box" style={{ marginBottom: 32 }}>
               <div className="venue-photo-placeholder">
-                {/* ← REPLACE with: <img src="/venue-reception.jpg" alt="Palazzo Verde Reception" className="venue-photo-img" /> */}
                 <span className="venue-photo-icon">🏛️</span>
                 <span className="venue-photo-hint">Reception Photo Coming Soon</span>
               </div>
@@ -155,68 +250,45 @@ function App() {
 
             <div className="venue-divider" />
 
-            {/* ── Map ── */}
+            {/* Map */}
             <div className="map-container">
               <iframe
                 title="Palazzo Verde Map"
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d966.2437811566513!2d121.008247967292!3d14.370851467002298!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d1e69968a175%3A0x91b8d8126ab138fc!2sNotre%20Dame%20De%20Vie%20Chapel!5e0!3m2!1sen!2sph!4v1774092328112!5m2!1sen!2sph&output=embed"
                 width="100%" height="300"
-                style={{ border:0, marginTop:'20px', borderRadius:'4px' }}
+                style={{ border: 0, marginTop: '20px', borderRadius: '4px' }}
                 allowFullScreen="" loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-              <div style={{ marginTop:'20px' }}>
+              <div style={{ marginTop: '20px' }}>
                 <a
                   href="https://www.google.com/maps?cid=10500380104825321724&hl=en&gl=PH&source=embed"
                   target="_blank" rel="noreferrer"
                   className="map-button"
-                >
-                  Open in Google Maps
-                </a>
+                >Open in Google Maps</a>
               </div>
               <p className="map-hint">Parking is available within the vicinity.</p>
             </div>
           </div>
         </section>
 
-
-        {/* ── Attire ── */}
+        {/* Attire */}
         <section className="attire-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">Attire</h2>
             <p className="rsvp-subtitle">Formal Garden Attire</p>
             <div className="divider-small"></div>
 
-            {/* Attire Photos */}
             <div className="attire-photos-grid">
               <div className="attire-photo-placeholder">
-                <img
-                    src="/attire-women.jpg"
-                    alt="Women's Attire"
-                    style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: 4,
-                    }}
-                />
-                </div>
-
-                <div className="attire-photo-placeholder">
-                <img
-                    src="/attire-men.png"
-                    alt="Men's Attire"
-                    style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: 4,
-                    }}
-                />
-                </div>
+                <img src="/attire-women.jpg" alt="Women's Attire" style={{ width:'100%', height:'100%', objectFit:'cover', borderRadius:3 }} />
+              </div>
+              <div className="attire-photo-placeholder">
+                <img src="/attire-men.png" alt="Men's Attire" style={{ width:'100%', height:'100%', objectFit:'cover', borderRadius:3 }} />
+              </div>
             </div>
 
-            <p className="attire-text" style={{ marginTop:'20px' }}>
+            <p className="attire-text" style={{ marginTop: '20px' }}>
               We suggest floor-length dresses for women and<br />
               suits or Barong Tagalog for men.
             </p>
@@ -225,21 +297,19 @@ function App() {
               <p className="palette-label">Wedding Color Palette</p>
               <div className="swatches">
                 {['#3D5A35','#C5A059','#FDF9F0','#2C2416'].map(c => (
-                  <div key={c} className="swatch" style={{ backgroundColor:c }} title={c} />
+                  <div key={c} className="swatch" style={{ backgroundColor: c }} title={c} />
                 ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── Entourage ── */}
+        {/* Entourage */}
         <section className="entourage-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">Wedding Entourage</h2>
             <div className="divider-small"></div>
-
             <div className="entourage-grid">
-
               <div className="entourage-group">
                 <h3 className="entourage-title">👴 Ninong</h3>
                 <ul className="entourage-list">
@@ -249,7 +319,6 @@ function App() {
                   <li>Mr. Marcelino Garcia</li>
                 </ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">👵 Ninang</h3>
                 <ul className="entourage-list">
@@ -259,7 +328,6 @@ function App() {
                   <li>Mrs. Felicidad Garcia</li>
                 </ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">💐 Bridesmaids</h3>
                 <ul className="entourage-list">
@@ -268,7 +336,6 @@ function App() {
                   <li>Ms. Camille Torres</li>
                 </ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">🤵 Groomsmen</h3>
                 <ul className="entourage-list">
@@ -277,35 +344,22 @@ function App() {
                   <li>Mr. Franco Ramos</li>
                 </ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">🌸 Maid of Honor</h3>
-                <ul className="entourage-list">
-                  <li>Ms. Gabriela Aquino</li>
-                </ul>
+                <ul className="entourage-list"><li>Ms. Gabriela Aquino</li></ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">🤵 Best Man</h3>
-                <ul className="entourage-list">
-                  <li>Mr. Hector Navarro</li>
-                </ul>
+                <ul className="entourage-list"><li>Mr. Hector Navarro</li></ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">💍 Ring Bearer</h3>
-                <ul className="entourage-list">
-                  <li>Master Ivan Santos</li>
-                </ul>
+                <ul className="entourage-list"><li>Master Ivan Santos</li></ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">🌸 Flower Girl</h3>
-                <ul className="entourage-list">
-                  <li>Little Julia Reyes</li>
-                </ul>
+                <ul className="entourage-list"><li>Little Julia Reyes</li></ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">🕯️ Candle Bearers</h3>
                 <ul className="entourage-list">
@@ -313,7 +367,6 @@ function App() {
                   <li>Mr. Luis Castillo</li>
                 </ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">🎀 Cord Sponsors</h3>
                 <ul className="entourage-list">
@@ -321,7 +374,6 @@ function App() {
                   <li>Mr. & Mrs. Nestor Villaluz</li>
                 </ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">🍞 Bible & Coins Bearers</h3>
                 <ul className="entourage-list">
@@ -329,7 +381,6 @@ function App() {
                   <li>Little Patricia Cruz</li>
                 </ul>
               </div>
-
               <div className="entourage-group">
                 <h3 className="entourage-title">📸 Principal Sponsors</h3>
                 <ul className="entourage-list">
@@ -337,18 +388,15 @@ function App() {
                   <li>Mr. & Mrs. Ramon Florendo</li>
                 </ul>
               </div>
-
             </div>
-
           </div>
         </section>
 
-        {/* ── Program Flow ── */}
+        {/* Program Flow */}
         <section className="program-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">Program Flow</h2>
             <div className="divider-small"></div>
-
             <div className="program-timeline">
               {[
                 { time:'3:00 PM', event:'Guest Arrival & Registration' },
@@ -361,7 +409,7 @@ function App() {
                 { time:'8:00 PM', event:'Speeches & Toasts' },
                 { time:'9:00 PM', event:'First Dance' },
                 { time:'9:30 PM', event:'Open Dancing & Celebration' },
-              ].map((item, i) => (  /* ← REPLACE times/events with actual program */
+              ].map((item, i) => (
                 <div key={i} className="program-item">
                   <span className="program-time">{item.time}</span>
                   <span className="program-dot">◆</span>
@@ -372,12 +420,11 @@ function App() {
           </div>
         </section>
 
-        {/* ── DOs and DON'Ts ── */}
+        {/* DOs & DON'Ts */}
         <section className="rules-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">DOs & DON'Ts</h2>
             <div className="divider-small"></div>
-
             <div className="rules-grid">
               <div className="rules-col dos">
                 <h3 className="rules-col-title">✅ DOs</h3>
@@ -388,10 +435,8 @@ function App() {
                   <li>Respect the solemnity of the ceremony</li>
                   <li>Sign the guest book</li>
                   <li>Take lots of photos and enjoy!</li>
-                  {/* ← ADD more DOs */}
                 </ul>
               </div>
-
               <div className="rules-col donts">
                 <h3 className="rules-col-title">❌ DON'Ts</h3>
                 <ul className="rules-list">
@@ -401,24 +446,21 @@ function App() {
                   <li>Don't bring uninvited guests without notice</li>
                   <li>Don't use phones during the ceremony</li>
                   <li>Don't leave early without saying goodbye!</li>
-                  {/* ← ADD more DON'Ts */}
                 </ul>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── RSVP Form ── */}
+        {/* RSVP Form */}
         <section className="rsvp-section-bottom reveal" id="rsvp-section">
           <div className="pv-panel rsvp-bottom-panel">
-
             <div className="rsvp-flourish">
               <span className="flourish-line" />
               <span className="flourish-diamond">◆</span>
               <span className="flourish-line" />
             </div>
 
-            {/* RSVP Counter */}
             <div className="rsvp-counter">
               <div className="counter-item">
                 <span className="counter-value">{responses.length}</span>
@@ -460,16 +502,13 @@ function App() {
                     <p className="attire-text">We're sorry to miss you, but we'll be<br />thinking of you on the big day!</p>
                   </>
                 )}
-
-                {/* Show report button */}
                 <button
                   onClick={() => setShowReport(!showReport)}
                   className="pv-button"
-                  style={{ marginTop:24, maxWidth:260, margin:'24px auto 0' }}
+                  style={{ marginTop: 24, maxWidth: 260, margin: '24px auto 0' }}
                 >
                   {showReport ? 'Hide' : 'View'} RSVP Report
                 </button>
-
               </div>
             ) : (
               <>
@@ -479,7 +518,6 @@ function App() {
                   <p className="date-string">OCTOBER 24, 2026</p>
                 </div>
                 <p className="rsvp-deadline">Please respond on or before September 1, 2026</p>
-
                 <form className="rsvp-form" onSubmit={handleSubmit}>
                   <div className="input-group">
                     <label>Full Name</label>
@@ -500,10 +538,10 @@ function App() {
                     </div>
                   </div>
                   <div className="input-group">
-                    <label>Message <span style={{ opacity:0.5, fontWeight:400 }}>(Optional)</span></label>
+                    <label>Message <span style={{ opacity: 0.5, fontWeight: 400 }}>(Optional)</span></label>
                     <textarea name="message" rows="1" placeholder="Dietary notes or well wishes..."
-                      onInput={e => { e.target.style.height='auto'; e.target.style.height=e.target.scrollHeight+'px' }}
-                      style={{ overflow:'hidden', resize:'none' }}
+                      onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px' }}
+                      style={{ overflow: 'hidden', resize: 'none' }}
                     />
                   </div>
                   <button type="submit" className="pv-button">Confirm Attendance</button>
@@ -511,7 +549,7 @@ function App() {
               </>
             )}
 
-            <div className="rsvp-flourish" style={{ marginTop:32, marginBottom:0 }}>
+            <div className="rsvp-flourish" style={{ marginTop: 32, marginBottom: 0 }}>
               <span className="flourish-line" />
               <span className="flourish-diamond">◆</span>
               <span className="flourish-line" />
@@ -519,14 +557,13 @@ function App() {
           </div>
         </section>
 
-        {/* ── RSVP Report ── */}
+        {/* RSVP Report */}
         {showReport && responses.length > 0 && (
           <section className="report-section reveal">
             <div className="pv-panel no-border-top">
               <h2 className="rsvp-title">RSVP Responses</h2>
               <p className="rsvp-subtitle">{responses.length} response{responses.length !== 1 ? 's' : ''} received</p>
               <div className="divider-small" />
-
               <div className="report-list">
                 {responses.map((r, i) => (
                   <div key={r.id} className="report-item">
@@ -550,21 +587,13 @@ function App() {
         )}
 
       </main>
-      <button
-        className="music-btn"
-        onClick={() => {
-          if (audioRef.current.paused) {
-            audioRef.current.play()
-          } else {
-            audioRef.current.pause()
-          }
-        }}
-        title="Toggle background music"
-      >
-        🎵
+
+      {/* Music toggle button */}
+      <button className="music-btn" onClick={toggleMusic} title={isPlaying ? 'Pause music' : 'Play music'}>
+        {isPlaying ? '🔊' : '🔇'}
       </button>
-          
-      {/* ── Footer ── */}
+
+      {/* Footer */}
       <footer className="footer reveal">
         <div className="footer-content">
           <div className="footer-divider"></div>
