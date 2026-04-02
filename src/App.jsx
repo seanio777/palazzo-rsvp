@@ -115,66 +115,66 @@ function App() {
       {/* ── Hero ── */}
       <header className="hero-header">
         <div className="hero-overlay">
-          <div className="hero-content fade-in">
 
-            {/* ── Infinite Carousel ── */}
-            {/* ── Infinite Auto-Scroll Carousel — no arrows, no dots ── */}
-            <div className="carousel-wrap">
-              <div
-                className="carousel-track"
-                style={{ animationDuration: `${couplePhotos.length * 3}s` }}
-              >
-                {/* Render photos twice for seamless infinite loop */}
-                {[...couplePhotos, ...couplePhotos].map((src, i) => (
-                  <div className="carousel-slide" key={i}>
-                    <img
-                      src={src}
-                      alt={`Couple photo ${i + 1}`}
-                      className="carousel-img"
-                      onError={e => {
-                        e.target.style.display = 'none'
-                        e.target.parentNode.style.background = 'rgba(255,255,255,0.05)'
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
+          {/* ── Full-width Carousel — no box ── */}
+          <div className="carousel-wrap">
+            <div
+              className="carousel-track"
+              style={{ animationDuration: `${couplePhotos.length * 3}s` }}
+            >
+              {[...couplePhotos, ...couplePhotos].map((src, i) => (
+                <div className="carousel-slide" key={i}>
+                  <img
+                    src={src}
+                    alt={`Couple photo ${i + 1}`}
+                    className="carousel-img"
+                    onError={e => {
+                      e.target.style.display = 'none'
+                      e.target.parentNode.style.background = 'rgba(255,255,255,0.08)'
+                    }}
+                  />
+                </div>
+              ))}
             </div>
+          </div>
 
+          {/* ── Text + Button ── */}
+          <div className="hero-content fade-in">
             <p className="pre-title">The Wedding of</p>
             <h1 className="names">Chryzller <span className="amp">&</span> Sebasthian</h1>
             <div className="divider"></div>
             <p className="venue-name">Palazzo Verde</p>
             <button className="hero-rsvp-btn" onClick={scrollToRSVP}>RSVP Now</button>
           </div>
+
+          {/* ── Details Strip INSIDE hero, below the button ── */}
+          <div className="details-strip-hero">
+            <div className="details-strip-inner">
+              <div className="detail-item">
+                <span className="detail-icon">📅</span>
+                <p className="detail-label">Date</p>
+                <p className="detail-value">October 24, 2026</p>
+              </div>
+              <div className="detail-divider" />
+              <div className="detail-item">
+                <span className="detail-icon">🕐</span>
+                <p className="detail-label">Time</p>
+                <p className="detail-value">3:00 PM onwards</p>
+              </div>
+              <div className="detail-divider" />
+              <div className="detail-item">
+                <span className="detail-icon">📍</span>
+                <p className="detail-label">Venue</p>
+                <p className="detail-value">Palazzo Verde</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </header>
 
+
       <main className="container">
-
-        {/* Details Strip */}
-        <section className="details-strip reveal">
-          <div className="details-strip-inner">
-            <div className="detail-item">
-              <span className="detail-icon">📅</span>
-              <p className="detail-label">Date</p>
-              <p className="detail-value">October 24, 2026</p>
-            </div>
-            <div className="detail-divider" />
-            <div className="detail-item">
-              <span className="detail-icon">🕐</span>
-              <p className="detail-label">Time</p>
-              <p className="detail-value">3:00 PM onwards</p>
-            </div>
-            <div className="detail-divider" />
-            <div className="detail-item">
-              <span className="detail-icon">📍</span>
-              <p className="detail-label">Venue</p>
-              <p className="detail-value">Palazzo Verde</p>
-            </div>
-          </div>
-        </section>
-
         {/* Venue */}
         <section className="location-section reveal">
           <div className="pv-panel">
@@ -555,15 +555,18 @@ function App() {
 
       </main>
 
-      {/* Music toggle button */}
-      <button className="music-btn" onClick={toggleMusic} title={isPlaying ? 'Pause music' : 'Play music'}>
-        {isPlaying ? '🔊' : '🔇'}
-      </button>
-
       {/* Footer */}
       <footer className="footer reveal">
         <div className="footer-content">
           <div className="footer-divider"></div>
+          <button
+            className="music-btn"
+            onClick={toggleMusic}
+            title={isPlaying ? 'Pause music' : 'Play music'}
+          >
+            {isPlaying ? '🔊' : '🔇'}
+          </button>
+
           <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">↑</button>
           <h2 className="footer-names">Chryzller <span className="amp">&</span> Sebasthian</h2>
           <p className="footer-date">OCTOBER 24, 2026 • PALAZZO VERDE</p>
