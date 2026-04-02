@@ -853,3 +853,96 @@ textarea { display: block; line-height: 1.5; }
 
   .program-item { grid-template-columns: 70px 16px 1fr; gap: 8px; }
 }
+
+/* ============================================================
+   RSVP FIXES — paste at the very bottom of PalazzoTheme.css
+   ============================================================ */
+
+/* ── Fix 1: Remove horizontal scroll from entire page ── */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+/* The app-wrapper must not exceed viewport width */
+.app-wrapper {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+/* The hero is the most common cause of horizontal overflow
+   because the carousel uses 100vw which can exceed the body width */
+.hero-header {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+.hero-overlay {
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+}
+
+/* Carousel must be clipped to viewport */
+.carousel-wrap {
+  max-width: 100vw !important;
+  overflow: hidden !important;
+}
+
+/* ── Fix 2: Details strip card on mobile ── */
+/* Add horizontal breathing room on all screen sizes */
+.details-strip-hero {
+  width: 100% !important;
+  max-width: 620px !important;
+  /* Key fix: use padding to create side margins */
+  padding: 0 16px 48px !important;
+  box-sizing: border-box !important;
+}
+
+/* The inner white card must respect the padding */
+.details-strip-hero .details-strip-inner {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Mobile: stack the 3 items vertically with proper spacing */
+@media (max-width: 600px) {
+  .details-strip-hero {
+    padding: 0 14px 40px !important;
+  }
+
+  .details-strip-hero .details-strip-inner {
+    flex-direction: column !important;
+    gap: 16px !important;
+    padding: 20px 16px !important;
+  }
+
+  .detail-divider {
+    width: 50px !important;
+    height: 1px !important;
+  }
+}
+
+/* Also fix the main container to never overflow */
+.container {
+  max-width: 640px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+/* All panels must stay within bounds */
+.pv-panel {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+/* Any grid or flex row inside panels */
+.attire-photos-grid,
+.entourage-grid,
+.rules-grid,
+.program-timeline,
+.rsvp-counter {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
