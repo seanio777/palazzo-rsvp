@@ -9,7 +9,6 @@ function App() {
   const [attendance, setAttendance]   = useState('Happily Accepts')
   const [responses, setResponses]     = useState([])
   const [showReport, setShowReport]   = useState(false)
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [isPlaying, setIsPlaying]     = useState(false)
   const audioRef = useRef(null)
   const carouselRef = useRef(null)
@@ -21,15 +20,6 @@ function App() {
     '/rsvp-photo-3.jpg',     // ← REPLACE
     '/rsvp-photo-4.jpg',     // ← REPLACE
   ]
-
-  // Auto-advance carousel every 4 seconds
-  useEffect(() => {
-    if (!showForm) return
-    const timer = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % couplePhotos.length)
-    }, 4000)
-    return () => clearInterval(timer)
-  }, [showForm, couplePhotos.length])
 
   // Auto-play music when main invitation loads
   useEffect(() => {
@@ -128,12 +118,14 @@ function App() {
           <div className="hero-content fade-in">
 
             {/* ── Infinite Carousel ── */}
+            {/* ── Infinite Auto-Scroll Carousel — no arrows, no dots ── */}
             <div className="carousel-wrap">
               <div
                 className="carousel-track"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                style={{ animationDuration: `${couplePhotos.length * 3}s` }}
               >
-                {couplePhotos.map((src, i) => (
+                {/* Render photos twice for seamless infinite loop */}
+                {[...couplePhotos, ...couplePhotos].map((src, i) => (
                   <div className="carousel-slide" key={i}>
                     <img
                       src={src}
@@ -147,30 +139,6 @@ function App() {
                   </div>
                 ))}
               </div>
-
-              {/* Dot indicators */}
-              <div className="carousel-dots">
-                {couplePhotos.map((_, i) => (
-                  <button
-                    key={i}
-                    className={`carousel-dot ${i === currentSlide ? 'active' : ''}`}
-                    onClick={() => setCurrentSlide(i)}
-                    aria-label={`Go to photo ${i + 1}`}
-                  />
-                ))}
-              </div>
-
-              {/* Prev / Next arrows */}
-              <button
-                className="carousel-arrow carousel-arrow-left"
-                onClick={() => setCurrentSlide(prev => (prev - 1 + couplePhotos.length) % couplePhotos.length)}
-                aria-label="Previous photo"
-              >‹</button>
-              <button
-                className="carousel-arrow carousel-arrow-right"
-                onClick={() => setCurrentSlide(prev => (prev + 1) % couplePhotos.length)}
-                aria-label="Next photo"
-              >›</button>
             </div>
 
             <p className="pre-title">The Wedding of</p>
@@ -234,8 +202,7 @@ function App() {
             {/* Reception */}
             <div className="venue-photo-box" style={{ marginBottom: 32 }}>
               <div className="venue-photo-placeholder">
-                <span className="venue-photo-icon">🏛️</span>
-                <span className="venue-photo-hint">Reception Photo Coming Soon</span>
+                <img src="/reception.jpg" alt="Palazzo Verde Reception" className="venue-photo-img" />
               </div>
               <div className="venue-block" style={{ marginTop: 20, marginBottom: 0 }}>
                 <p className="venue-type-label">🥂 Reception</p>
