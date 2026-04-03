@@ -7,21 +7,19 @@ function App() {
   const [showForm, setShowForm]       = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [attendance, setAttendance]   = useState('Happily Accepts')
+  const [companions, setCompanions]   = useState(1)
   const [responses, setResponses]     = useState([])
   const [showReport, setShowReport]   = useState(false)
   const [isPlaying, setIsPlaying]     = useState(false)
   const audioRef = useRef(null)
-  const carouselRef = useRef(null)
 
-  // ── Carousel photos — add your 4 filenames here ──────────
   const couplePhotos = [
-    '/rsvp-photo.jpg',       // ← REPLACE with your actual filenames
-    '/rsvp-photo-2.jpg',     // ← REPLACE
-    '/rsvp-photo-3.jpg',     // ← REPLACE
-    '/rsvp-photo-4.jpg',     // ← REPLACE
+    '/rsvp-photo.jpg',
+    '/rsvp-photo-2.jpg',
+    '/rsvp-photo-3.jpg',
+    '/rsvp-photo-4.jpg',
   ]
 
-  // Auto-play music when main invitation loads
   useEffect(() => {
     if (!showForm) return
     const tryPlay = () => {
@@ -30,7 +28,6 @@ function App() {
         audioRef.current.play()
           .then(() => setIsPlaying(true))
           .catch(() => {
-            // Autoplay blocked — wait for first user interaction
             const unlock = () => {
               audioRef.current?.play()
                 .then(() => {
@@ -45,7 +42,6 @@ function App() {
           })
       }
     }
-    // Small delay to let DOM settle
     const t = setTimeout(tryPlay, 600)
     return () => clearTimeout(t)
   }, [showForm])
@@ -70,7 +66,7 @@ function App() {
       id:         Date.now(),
       name:       form.fullName.value,
       attendance: attendance,
-      companions: form.companions.value,
+      companions: companions,
       message:    form.message?.value || '',
       timestamp:  new Date().toLocaleString('en-PH'),
     }
@@ -83,7 +79,6 @@ function App() {
   const declined    = responses.filter(r => r.attendance === 'Regretfully Declines').length
   const totalGuests = responses.reduce((sum, r) => sum + parseInt(r.companions || 1), 0)
 
-  // ── Preview page ───────────────────────────────────────────
   if (!showForm) {
     return (
       <div className="preview-page">
@@ -103,25 +98,18 @@ function App() {
     )
   }
 
-  // ── Main invitation ────────────────────────────────────────
   return (
     <div className="app-wrapper fade-in">
 
-      {/* Hidden audio — autoplay handled above */}
       <audio ref={audioRef} loop style={{ display: 'none' }}>
         <source src="/bg-music.mp3" type="audio/mpeg" />
       </audio>
 
-      {/* ── Hero ── */}
       <header className="hero-header">
         <div className="hero-overlay">
 
-          {/* ── Full-width Carousel — no box ── */}
           <div className="carousel-wrap">
-            <div
-              className="carousel-track"
-              style={{ animationDuration: `${couplePhotos.length * 3}s` }}
-            >
+            <div className="carousel-track" style={{ animationDuration: `${couplePhotos.length * 3}s` }}>
               {[...couplePhotos, ...couplePhotos].map((src, i) => (
                 <div className="carousel-slide" key={i}>
                   <img
@@ -138,7 +126,6 @@ function App() {
             </div>
           </div>
 
-          {/* ── Text + Button ── */}
           <div className="hero-content fade-in">
             <p className="pre-title">The Wedding of</p>
             <h1 className="names">Chryzller <span className="amp">&</span> Sebasthian</h1>
@@ -147,7 +134,6 @@ function App() {
             <button className="hero-rsvp-btn" onClick={scrollToRSVP}>RSVP Now</button>
           </div>
 
-          {/* ── Details Strip INSIDE hero, below the button ── */}
           <div className="details-strip-hero">
             <div className="details-strip-inner">
               <div className="detail-item">
@@ -173,15 +159,12 @@ function App() {
         </div>
       </header>
 
-
       <main className="container">
-        {/* Venue */}
+
         <section className="location-section reveal">
           <div className="pv-panel">
             <h2 className="rsvp-title">The Venue</h2>
             <div className="divider-small"></div>
-
-            {/* Chapel */}
             <div className="venue-photo-box" style={{ marginBottom: 32 }}>
               <div className="venue-photo-placeholder">
                 <img src="/chapel.jpg" alt="Notre Dame De Vie Chapel" className="venue-photo-img" />
@@ -190,16 +173,10 @@ function App() {
                 <p className="venue-type-label">⛪ Wedding Ceremony</p>
                 <h3 className="venue-block-title">Notre Dame De Vie Chapel</h3>
                 <p className="venue-block-sub">Brittany Palazzo · Palazzo Verde</p>
-                <p className="location-text">
-                  Daang Reyna, Vista Alabang,<br />
-                  Las Piñas, 1750 Metro Manila
-                </p>
+                <p className="location-text">Daang Reyna, Vista Alabang,<br />Las Piñas, 1750 Metro Manila</p>
               </div>
             </div>
-
             <div className="venue-divider" />
-
-            {/* Reception */}
             <div className="venue-photo-box" style={{ marginBottom: 32 }}>
               <div className="venue-photo-placeholder">
                 <img src="/reception.jpg" alt="Palazzo Verde Reception" className="venue-photo-img" />
@@ -208,16 +185,10 @@ function App() {
                 <p className="venue-type-label">🥂 Reception</p>
                 <h3 className="venue-block-title">Palazzo Verde</h3>
                 <p className="venue-block-sub">Brittany Palazzo</p>
-                <p className="location-text">
-                  Daang Reyna, Vista Alabang,<br />
-                  Las Piñas, 1750 Metro Manila
-                </p>
+                <p className="location-text">Daang Reyna, Vista Alabang,<br />Las Piñas, 1750 Metro Manila</p>
               </div>
             </div>
-
             <div className="venue-divider" />
-
-            {/* Map */}
             <div className="map-container">
               <iframe
                 title="Palazzo Verde Map"
@@ -228,24 +199,18 @@ function App() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
               <div style={{ marginTop: '20px' }}>
-                <a
-                  href="https://www.google.com/maps?cid=10500380104825321724&hl=en&gl=PH&source=embed"
-                  target="_blank" rel="noreferrer"
-                  className="map-button"
-                >Open in Google Maps</a>
+                <a href="https://www.google.com/maps?cid=10500380104825321724&hl=en&gl=PH&source=embed" target="_blank" rel="noreferrer" className="map-button">Open in Google Maps</a>
               </div>
               <p className="map-hint">Parking is available within the vicinity.</p>
             </div>
           </div>
         </section>
 
-        {/* Attire */}
         <section className="attire-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">Attire</h2>
             <p className="rsvp-subtitle">Formal Garden Attire</p>
             <div className="divider-small"></div>
-
             <div className="attire-photos-grid">
               <div className="attire-photo-placeholder">
                 <img src="/attire-women.jpg" alt="Women's Attire" style={{ width:'100%', height:'100%', objectFit:'cover', borderRadius:3 }} />
@@ -254,12 +219,9 @@ function App() {
                 <img src="/attire-men.png" alt="Men's Attire" style={{ width:'100%', height:'100%', objectFit:'cover', borderRadius:3 }} />
               </div>
             </div>
-
             <p className="attire-text" style={{ marginTop: '20px' }}>
-              We suggest floor-length dresses for women and<br />
-              suits or Barong Tagalog for men.
+              We suggest floor-length dresses for women and<br />suits or Barong Tagalog for men.
             </p>
-
             <div className="color-palette">
               <p className="palette-label">Wedding Color Palette</p>
               <div className="swatches">
@@ -271,95 +233,27 @@ function App() {
           </div>
         </section>
 
-        {/* Entourage */}
         <section className="entourage-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">Wedding Entourage</h2>
             <div className="divider-small"></div>
             <div className="entourage-grid">
-              <div className="entourage-group">
-                <h3 className="entourage-title">👴 Ninong</h3>
-                <ul className="entourage-list">
-                  <li>Mr. Roberto Dela Cruz</li>
-                  <li>Mr. Antonio Reyes</li>
-                  <li>Mr. Eduardo Santos</li>
-                  <li>Mr. Marcelino Garcia</li>
-                </ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">👵 Ninang</h3>
-                <ul className="entourage-list">
-                  <li>Mrs. Corazon Dela Cruz</li>
-                  <li>Mrs. Ligaya Reyes</li>
-                  <li>Mrs. Esperanza Santos</li>
-                  <li>Mrs. Felicidad Garcia</li>
-                </ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">💐 Bridesmaids</h3>
-                <ul className="entourage-list">
-                  <li>Ms. Andrea Villanueva</li>
-                  <li>Ms. Bianca Lim</li>
-                  <li>Ms. Camille Torres</li>
-                </ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">🤵 Groomsmen</h3>
-                <ul className="entourage-list">
-                  <li>Mr. Daniel Mendoza</li>
-                  <li>Mr. Ethan Cruz</li>
-                  <li>Mr. Franco Ramos</li>
-                </ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">🌸 Maid of Honor</h3>
-                <ul className="entourage-list"><li>Ms. Gabriela Aquino</li></ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">🤵 Best Man</h3>
-                <ul className="entourage-list"><li>Mr. Hector Navarro</li></ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">💍 Ring Bearer</h3>
-                <ul className="entourage-list"><li>Master Ivan Santos</li></ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">🌸 Flower Girl</h3>
-                <ul className="entourage-list"><li>Little Julia Reyes</li></ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">🕯️ Candle Bearers</h3>
-                <ul className="entourage-list">
-                  <li>Ms. Karen Bautista</li>
-                  <li>Mr. Luis Castillo</li>
-                </ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">🎀 Cord Sponsors</h3>
-                <ul className="entourage-list">
-                  <li>Mr. & Mrs. Marco Dela Rosa</li>
-                  <li>Mr. & Mrs. Nestor Villaluz</li>
-                </ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">🍞 Bible & Coins Bearers</h3>
-                <ul className="entourage-list">
-                  <li>Master Oscar Mendez</li>
-                  <li>Little Patricia Cruz</li>
-                </ul>
-              </div>
-              <div className="entourage-group">
-                <h3 className="entourage-title">📸 Principal Sponsors</h3>
-                <ul className="entourage-list">
-                  <li>Mr. & Mrs. Quintin Soriano</li>
-                  <li>Mr. & Mrs. Ramon Florendo</li>
-                </ul>
-              </div>
+              <div className="entourage-group"><h3 className="entourage-title">👴 Ninong</h3><ul className="entourage-list"><li>Mr. Roberto Dela Cruz</li><li>Mr. Antonio Reyes</li><li>Mr. Eduardo Santos</li><li>Mr. Marcelino Garcia</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">👵 Ninang</h3><ul className="entourage-list"><li>Mrs. Corazon Dela Cruz</li><li>Mrs. Ligaya Reyes</li><li>Mrs. Esperanza Santos</li><li>Mrs. Felicidad Garcia</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">💐 Bridesmaids</h3><ul className="entourage-list"><li>Ms. Andrea Villanueva</li><li>Ms. Bianca Lim</li><li>Ms. Camille Torres</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">🤵 Groomsmen</h3><ul className="entourage-list"><li>Mr. Daniel Mendoza</li><li>Mr. Ethan Cruz</li><li>Mr. Franco Ramos</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">🌸 Maid of Honor</h3><ul className="entourage-list"><li>Ms. Gabriela Aquino</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">🤵 Best Man</h3><ul className="entourage-list"><li>Mr. Hector Navarro</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">💍 Ring Bearer</h3><ul className="entourage-list"><li>Master Ivan Santos</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">🌸 Flower Girl</h3><ul className="entourage-list"><li>Little Julia Reyes</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">🕯️ Candle Bearers</h3><ul className="entourage-list"><li>Ms. Karen Bautista</li><li>Mr. Luis Castillo</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">🎀 Cord Sponsors</h3><ul className="entourage-list"><li>Mr. & Mrs. Marco Dela Rosa</li><li>Mr. & Mrs. Nestor Villaluz</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">🍞 Bible & Coins Bearers</h3><ul className="entourage-list"><li>Master Oscar Mendez</li><li>Little Patricia Cruz</li></ul></div>
+              <div className="entourage-group"><h3 className="entourage-title">📸 Principal Sponsors</h3><ul className="entourage-list"><li>Mr. & Mrs. Quintin Soriano</li><li>Mr. & Mrs. Ramon Florendo</li></ul></div>
             </div>
           </div>
         </section>
 
-        {/* Program Flow */}
         <section className="program-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">Program Flow</h2>
@@ -387,7 +281,6 @@ function App() {
           </div>
         </section>
 
-        {/* DOs & DON'Ts */}
         <section className="rules-section reveal">
           <div className="pv-panel no-border-top">
             <h2 className="rsvp-title">DOs & DON'Ts</h2>
@@ -419,7 +312,6 @@ function App() {
           </div>
         </section>
 
-        {/* RSVP Form */}
         <section className="rsvp-section-bottom reveal" id="rsvp-section">
           <div className="pv-panel rsvp-bottom-panel">
             <div className="rsvp-flourish">
@@ -429,25 +321,13 @@ function App() {
             </div>
 
             <div className="rsvp-counter">
-              <div className="counter-item">
-                <span className="counter-value">{responses.length}</span>
-                <span className="counter-label">Responded</span>
-              </div>
+              <div className="counter-item"><span className="counter-value">{responses.length}</span><span className="counter-label">Responded</span></div>
               <div className="counter-divider" />
-              <div className="counter-item">
-                <span className="counter-value accept">{accepted}</span>
-                <span className="counter-label">Attending</span>
-              </div>
+              <div className="counter-item"><span className="counter-value accept">{accepted}</span><span className="counter-label">Attending</span></div>
               <div className="counter-divider" />
-              <div className="counter-item">
-                <span className="counter-value decline">{declined}</span>
-                <span className="counter-label">Declining</span>
-              </div>
+              <div className="counter-item"><span className="counter-value decline">{declined}</span><span className="counter-label">Declining</span></div>
               <div className="counter-divider" />
-              <div className="counter-item">
-                <span className="counter-value">{totalGuests}</span>
-                <span className="counter-label">Total Guests</span>
-              </div>
+              <div className="counter-item"><span className="counter-value">{totalGuests}</span><span className="counter-label">Total Guests</span></div>
             </div>
 
             {isSubmitted ? (
@@ -469,11 +349,7 @@ function App() {
                     <p className="attire-text">We're sorry to miss you, but we'll be<br />thinking of you on the big day!</p>
                   </>
                 )}
-                <button
-                  onClick={() => setShowReport(!showReport)}
-                  className="pv-button"
-                  style={{ marginTop: 24, maxWidth: 260, margin: '24px auto 0' }}
-                >
+                <button onClick={() => setShowReport(!showReport)} className="pv-button" style={{ marginTop: 24, maxWidth: 260, margin: '24px auto 0' }}>
                   {showReport ? 'Hide' : 'View'} RSVP Report
                 </button>
               </div>
@@ -500,7 +376,13 @@ function App() {
                     </div>
                     <div className="input-group">
                       <label>Companion</label>
-                      <input name="companions" type="number" defaultValue="1" min="1" max="2" onKeyDown={e => e.preventDefault()} />
+                      {/* Stepper — works on mobile without needing a keyboard */}
+                      <div className="companions-stepper">
+                        <button type="button" className="stepper-btn" onClick={() => setCompanions(c => Math.max(1, c - 1))} aria-label="Decrease">-</button>
+                        <span className="stepper-value">{companions}</span>
+                        <button type="button" className="stepper-btn" onClick={() => setCompanions(c => Math.min(2, c + 1))} aria-label="Increase">+</button>
+                        <input type="hidden" name="companions" value={companions} />
+                      </div>
                       <span className="limit-hint">Max 2 persons per invitation</span>
                     </div>
                   </div>
@@ -524,7 +406,6 @@ function App() {
           </div>
         </section>
 
-        {/* RSVP Report */}
         {showReport && responses.length > 0 && (
           <section className="report-section reveal">
             <div className="pv-panel no-border-top">
@@ -538,9 +419,7 @@ function App() {
                     <div className="report-details">
                       <p className="report-name">{r.name}</p>
                       <div className="report-meta">
-                        <span className={`report-status ${r.attendance === 'Happily Accepts' ? 'accept' : 'decline'}`}>
-                          {r.attendance}
-                        </span>
+                        <span className={`report-status ${r.attendance === 'Happily Accepts' ? 'accept' : 'decline'}`}>{r.attendance}</span>
                         <span className="report-guests">👥 {r.companions} guest{r.companions > 1 ? 's' : ''}</span>
                         {r.message && <span className="report-message">💬 "{r.message}"</span>}
                       </div>
@@ -555,18 +434,12 @@ function App() {
 
       </main>
 
-      {/* Footer */}
       <footer className="footer reveal">
         <div className="footer-content">
           <div className="footer-divider"></div>
-          <button
-            className="music-btn"
-            onClick={toggleMusic}
-            title={isPlaying ? 'Pause music' : 'Play music'}
-          >
+          <button className="music-btn" onClick={toggleMusic} title={isPlaying ? 'Pause music' : 'Play music'}>
             {isPlaying ? '🔊' : '🔇'}
           </button>
-
           <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">↑</button>
           <h2 className="footer-names">Chryzller <span className="amp">&</span> Sebasthian</h2>
           <p className="footer-date">OCTOBER 24, 2026 • PALAZZO VERDE</p>

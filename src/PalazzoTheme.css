@@ -946,3 +946,59 @@ html, body {
   width: 100% !important;
   box-sizing: border-box !important;
 }
+
+/* ============================================================
+   RSVP ADDITIONS — paste at the very bottom of PalazzoTheme.css
+   ============================================================ */
+
+/* ── Fix 1: Remove carousel hover pause ── */
+/* Override the existing hover rule that pauses the animation */
+.carousel-wrap:hover .carousel-track {
+  animation-play-state: running !important;
+}
+
+/* ── Fix 2: Companion stepper (replaces number input on mobile) ── */
+.companions-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid #ddd;
+  padding: 6px 0;
+  margin-top: 2px;
+}
+
+.stepper-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(197,160,89,0.4);
+  border-radius: 4px;
+  background: rgba(197,160,89,0.06);
+  color: var(--pv-dark-gold);
+  font-size: 1.2rem;
+  font-family: 'Playfair Display', serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  /* Prevent any form submission on click */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stepper-btn:hover,
+.stepper-btn:active {
+  background: rgba(197,160,89,0.18);
+  border-color: var(--pv-gold);
+}
+
+.stepper-value {
+  flex: 1;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--pv-text);
+  font-weight: 600;
+  min-width: 40px;
+}
